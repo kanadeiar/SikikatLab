@@ -3,10 +3,235 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:data="clr-namespace:SilikatLabWpf.Data"
+        xmlns:m="clr-namespace:SilikatLabWpf.Models"
         xmlns:local="clr-namespace:SilikatLabWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="{x:Static data:TestData.Title}" Height="600" Width="900">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Авторизация">
+                <MenuItem Header="Авторизоваться как ..."/>
+                <MenuItem Header="Завершить работу"/>
+                <Separator/>
+                <MenuItem Header="Выход"/>
+            </MenuItem>
+            <MenuItem Header="Задания">
+                <MenuItem Header="Новое"/>
+                <MenuItem Header="Редактировать"/>
+            </MenuItem>
+            <MenuItem Header="Сервис">
+                <MenuItem Header="Настройка программы"/>
+            </MenuItem>
+            <MenuItem Header="Справка">
+                <MenuItem Header="Справочные материалы"/>
+                <Separator/>
+                <MenuItem Header="О программе ..."/>
+            </MenuItem>
+        </Menu>
+        <Grid DockPanel.Dock="Top" Background="Aquamarine" Height="40">
+            <TextBlock Text="Описание программы: Лабораторная программа" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" TextWrapping="Wrap"/>
+        </Grid>
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar>
+                <Button Content="Новое задание" Background="GreenYellow" Height="40" Cursor="Hand"/>
+                <Button Content="Новые результаты анализов" Background="Aqua" Height="40" Cursor="Hand"/>
+            </ToolBar>
+        </ToolBarTray>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock Text="Готов"/>
+            </StatusBarItem>
+        </StatusBar>
+        <TabControl>
+            <TabItem Header="Лабораторные задания для лаборанта" Height="30">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="Задания лаборанту:" Grid.Column="0">
+                        <ListBox ItemsSource="{x:Static data:TestData.WorkTasks}">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="m:WorkTask">
+                                    <GroupBox>
+                                        <GroupBox.Header>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Button Grid.Column="1" Content="X" Width="21" Padding="5,4" Foreground="Red" Background="Yellow" ToolTip="Отменить это задание"/>
+                                                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0,50,0">
+                                                    <TextBlock Text="Время: " VerticalAlignment="Center"/>
+                                                    <TextBlock Text="{Binding DateTime, StringFormat=dd.MM.yyyy HH:mm}" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </GroupBox.Header>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="3*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Column="0" Grid.Row="0" Text="Название:"/>
+                                            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Name}"/>
+                                            <TextBlock Grid.Column="0" Grid.Row="1" Text="Вид:"/>
+                                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Research.Name}"/>
+                                            <TextBlock Grid.Column="0" Grid.Row="2" Text="Объект:"/>
+                                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding ResearchObject.Name}"/>
+                                        </Grid>
+                                    </GroupBox>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </GroupBox>
+                    <GroupBox Grid.Column="1" Header="Результаты по этому заданию:" >
+                        <ListBox ItemsSource="{x:Static data:TestData.WorkResults}">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="m:WorkResult">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="3*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Дата:"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding DateTime}"/>
+                                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Название:"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Name}"/>
+                                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Результат:"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Value, StringFormat={}{0:F2} градусов}"/>
+                                        <TextBlock Grid.Column="0" Grid.Row="3" Text="Лаборант:"/>
+                                        <Label Grid.Column="1" Grid.Row="3" Margin="-5">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Laboratorian.SurName}" Margin="0,0, 5, 0"/>
+                                                <TextBlock Text="{Binding Laboratorian.Name}" />
+                                                <TextBlock Text="{Binding Laboratorian.Patronymic}" Margin="5,0"/>
+                                            </StackPanel>
+                                        </Label>
+                                        <Button Grid.Row="4" Content="Показать" Margin="2" Height="30" Background="GreenYellow"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </GroupBox>
+                    <GridSplitter Grid.Column="0" Width="5" Background="Transparent"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Результаты лабораторных анализов">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <ToolBarTray Grid.Row="0">
+                        <ToolBar Header="Дата">
+                            <ComboBox SelectedIndex="0">
+                                <ComboBoxItem>Сегодняшние сутки</ComboBoxItem>
+                                <ComboBoxItem>Двое суток</ComboBoxItem>
+                                <ComboBoxItem>Последняя Неделя</ComboBoxItem>
+                                <ComboBoxItem>Последний Месяц</ComboBoxItem>
+                            </ComboBox>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox Content="Архивные данные" Name="CheckBoxArchives"  IsChecked="False" VerticalAlignment="Center"/>
+                                <TextBlock Text="Дата и время:" IsEnabled="{Binding Path=IsChecked, ElementName=CheckBoxArchives}" Margin="5,0" VerticalAlignment="Center"/>
+                                <TextBox Text="01.01.2021" IsEnabled="{Binding Path=IsChecked, ElementName=CheckBoxArchives}"/>
+                            </StackPanel>
+                        </ToolBar>
+                        <ToolBar Header="Анализ">
+                            <ComboBox SelectedIndex="0" ItemsSource="{x:Static data:TestData.Researches}" DisplayMemberPath="Name">
+                            </ComboBox>
+                        </ToolBar>
+                        <ToolBar Band="1" Header="Объект">
+                            <ComboBox SelectedIndex="0" ItemsSource="{x:Static data:TestData.ResearchObjects}" DisplayMemberPath="Name">
+                            </ComboBox>
+                        </ToolBar>
+                        <ToolBar Band="1">
+                            <ComboBox SelectedIndex="0" ItemsSource="{x:Static data:TestData.WorkShifts}" DisplayMemberPath="Name">
+                            </ComboBox>
+                        </ToolBar>
+                    </ToolBarTray>
+                    <GroupBox Grid.Row="1">
+                        <ListBox Grid.Row="1" ItemsSource="{x:Static data:TestData.WorkResults}">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="m:WorkResult">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="5*"/>
+                                            <ColumnDefinition Width="100"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Дата:"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding DateTime}" FontWeight="Bold"/>
+                                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Название:"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Name}"/>
+                                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Результат:"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Value, StringFormat={}{0:F2} градусов}"/>
 
-    </Grid>
+                                        <TextBlock Grid.Column="3" Grid.Row="0" Text="Лаборант:" FontStyle="Italic"/>
+                                        <Label Grid.Column="4" Grid.Row="0" Margin="-5" FontStyle="Italic">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Laboratorian.SurName}" Margin="0,0, 5, 0"/>
+                                                <TextBlock Text="{Binding Laboratorian.Name}" />
+                                                <TextBlock Text="{Binding Laboratorian.Patronymic}" Margin="5,0"/>
+                                            </StackPanel>
+                                        </Label>
+                                        <TextBlock Grid.Column="3" Grid.Row="1" Text="Смена:"/>
+                                        <TextBlock Grid.Column="4" Grid.Row="1" Text="{Binding WorkShift.Name}"/>
+
+                                        <TextBlock Grid.Column="2" Grid.Row="0" Text=""/>
+
+                                        <Button Grid.Row="0" Grid.Column="6" Grid.RowSpan="4" Content="Показать" Margin="2" Height="30" Background="GreenYellow"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </GroupBox>
+                    
+
+
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </DockPanel>
 </Window>

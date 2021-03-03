@@ -35,7 +35,7 @@
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
                 <Button Content="Создать новое задание" Background="GreenYellow" Height="40" Cursor="Hand" Click="ButtonNewTask_Click"/>
-                <Button Content="Внести новые результаты анализов" Background="Aqua" Height="40" Cursor="Hand"/>
+                <Button Content="Внести новые результаты анализов" Background="Aqua" Height="40" Cursor="Hand" Click="ButtonAddNewDetailsResult_Click"/>
             </ToolBar>
             <ToolBar BandIndex="1">
                 <Button Content="Обновить данные" Background="DeepSkyBlue" Height="40" Cursor="Hand"/>

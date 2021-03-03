@@ -38,7 +38,7 @@
             <TextBlock Grid.Row="4" Text="Результат:" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="4" Grid.Column="1" Text="93.11 градусов" Margin="5"/>
             <TextBlock Grid.Row="5" Text="Результаты текстовые:"/>
-            <TextBlock Grid.Row="5" Grid.Column="1" Text="Температура = 59 градусов Давление = 1,1 атмосфер" Margin="5" Height="40" TextWrapping="Wrap"/>
+            <TextBlock Grid.Row="5" Grid.Column="1" Text="Температура = 59 градусов Давление = 1,1 атмосфер" Margin="5" Height="60" TextWrapping="Wrap"/>
             <TextBlock Grid.Row="6" Text="Лаборант:" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="6" Grid.Column="1" Text="Иванов Иван Иванович" Margin="5"/>
             <TextBlock Grid.Row="7" Text="Смена:" VerticalAlignment="Center"/>
@@ -47,8 +47,8 @@
             <TextBlock Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Text="Условия, особенности, прочее, другое, иное" Margin="5"/>
         </Grid>
         <UniformGrid Rows="1">
-            <Button Content="Закрыть" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Background="Yellow" Click="ButtonClose_Click"/>
-            <Button Content="Печать" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Background="CornflowerBlue"/>
+            <Button Content="Закрыть" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Background="Yellow" Click="ButtonClose_Click" Cursor="Hand"/>
+            <Button Content="Печать" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Background="CornflowerBlue" Cursor="Hand"/>
         </UniformGrid>
     </DockPanel>
 </Window>

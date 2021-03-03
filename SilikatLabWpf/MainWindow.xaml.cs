@@ -26,5 +26,12 @@ namespace SilikatLabWpf
             window.Owner = this;
             window.ShowDialog();
         }
+
+        private void ButtonAddNewDetailsResult_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new AddNewResultWindow();
+            window.Owner = this;
+            window.ShowDialog();
+        }
     }
 }

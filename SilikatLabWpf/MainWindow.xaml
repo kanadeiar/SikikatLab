@@ -34,7 +34,7 @@
         </Grid>
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
-                <Button Content="Новое задание" Background="GreenYellow" Height="40" Cursor="Hand"/>
+                <Button Content="Новое задание" Background="GreenYellow" Height="40" Cursor="Hand" Click="ButtonNewTask_Click"/>
                 <Button Content="Новые результаты анализов" Background="Aqua" Height="40" Cursor="Hand"/>
             </ToolBar>
         </ToolBarTray>

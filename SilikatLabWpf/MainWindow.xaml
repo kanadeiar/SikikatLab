@@ -11,8 +11,8 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Авторизация">
-                <MenuItem Header="Авторизоваться как ..."/>
-                <MenuItem Header="Завершить работу"/>
+                <MenuItem Header="Авторизоваться как ..." Click="MenuItemAuth_OnClick"/>
+                <MenuItem Header="Завершить сеанс" Click="MenuItemDeauth_OnClick"/>
                 <Separator/>
                 <MenuItem Header="Выход"/>
             </MenuItem>
@@ -49,8 +49,8 @@
                 <TextBlock Text="Готов"/>
             </StatusBarItem>
         </StatusBar>
-        <TabControl>
-            <TabItem Header="Лабораторные задания для лаборанта" Height="30">
+        <TabControl SelectedIndex="1">
+            <TabItem Name="TabItemEditData" Header="Лабораторные задания для лаборанта" Height="30">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -146,7 +146,7 @@
                     <GridSplitter Grid.Column="0" Width="5" Background="Transparent"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Результаты лабораторных анализов">
+            <TabItem Name="TabItemShow" Header="Результаты лабораторных анализов">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>

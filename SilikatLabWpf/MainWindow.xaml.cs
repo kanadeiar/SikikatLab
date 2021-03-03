@@ -33,5 +33,16 @@ namespace SilikatLabWpf
             window.Owner = this;
             window.ShowDialog();
         }
+
+        private void MenuItemAuth_OnClick(object sender, RoutedEventArgs e)
+        {
+            TabItemEditData.Visibility = Visibility.Visible;
+        }
+
+        private void MenuItemDeauth_OnClick(object sender, RoutedEventArgs e)
+        {
+            TabItemEditData.Visibility = Visibility.Collapsed;
+            TabItemShow.IsSelected = true;
+        }
     }
 }

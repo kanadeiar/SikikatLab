@@ -1,0 +1,54 @@
+﻿<Window x:Class="SilikatLabWpf.Windows.DetailsResultWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SilikatLabWpf.Windows"
+        xmlns:data="clr-namespace:SilikatLabWpf.Data"
+        xmlns:m="clr-namespace:SilikatLabWpf.Models"
+        mc:Ignorable="d"
+        Title="Детальные результаты лабораторных анализов" Height="400" Width="400" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+    <DockPanel>
+        <Grid DockPanel.Dock="Top" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Дата проведения анализов:" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Text="10.01.2021" Margin="5"/>
+            <TextBlock Grid.Row="1" Text="Название результатов:" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Margin="5" Text="Результаты исследования №1"/>
+            <TextBlock Grid.Row="2" Text="Вид исследования:" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="Температура" Margin="5"/>
+            <TextBlock Grid.Row="3" Text="Объект исследования:" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" Text="Массив № 1" Margin="5"/>
+            <TextBlock Grid.Row="4" Text="Результат:" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" Text="93.11 градусов" Margin="5"/>
+            <TextBlock Grid.Row="5" Text="Результаты текстовые:"/>
+            <TextBlock Grid.Row="5" Grid.Column="1" Text="Температура = 59 градусов Давление = 1,1 атмосфер" Margin="5" Height="40" TextWrapping="Wrap"/>
+            <TextBlock Grid.Row="6" Text="Лаборант:" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="6" Grid.Column="1" Text="Иванов Иван Иванович" Margin="5"/>
+            <TextBlock Grid.Row="7" Text="Смена:" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="7" Grid.Column="1" Text="Смена № 1" Margin="5"/>
+            <TextBlock Grid.Row="8" Text="Примечание:" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Text="Условия, особенности, прочее, другое, иное" Margin="5"/>
+        </Grid>
+        <UniformGrid Rows="1">
+            <Button Content="Закрыть" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Background="Yellow" Click="ButtonClose_Click"/>
+            <Button Content="Печать" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Background="CornflowerBlue"/>
+        </UniformGrid>
+    </DockPanel>
+</Window>

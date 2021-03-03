@@ -34,8 +34,14 @@
         </Grid>
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
-                <Button Content="Новое задание" Background="GreenYellow" Height="40" Cursor="Hand" Click="ButtonNewTask_Click"/>
-                <Button Content="Новые результаты анализов" Background="Aqua" Height="40" Cursor="Hand"/>
+                <Button Content="Создать новое задание" Background="GreenYellow" Height="40" Cursor="Hand" Click="ButtonNewTask_Click"/>
+                <Button Content="Внести новые результаты анализов" Background="Aqua" Height="40" Cursor="Hand"/>
+            </ToolBar>
+            <ToolBar BandIndex="1">
+                <Button Content="Обновить данные" Background="DeepSkyBlue" Height="40" Cursor="Hand"/>
+            </ToolBar>
+            <ToolBar BandIndex="2">
+                <Button Content="Отчет за сутки" Background="Yellow" Height="40" Cursor="Hand"/>
             </ToolBar>
         </ToolBarTray>
         <StatusBar DockPanel.Dock="Bottom">
@@ -66,7 +72,7 @@
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Button Grid.Column="1" Content="X" Width="21" Padding="5,4" Foreground="Red" Background="Yellow" ToolTip="Отменить это задание"/>
+                                                <Button Grid.Column="1" Content="X" Width="21" Padding="5,4" Foreground="Red" Background="Yellow" ToolTip="Отменить это задание" Cursor="Hand"/>
                                                 <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0,50,0">
                                                     <TextBlock Text="Время: " VerticalAlignment="Center"/>
                                                     <TextBlock Text="{Binding DateTime, StringFormat=dd.MM.yyyy HH:mm}" VerticalAlignment="Center"/>
@@ -131,7 +137,7 @@
                                                 <TextBlock Text="{Binding Laboratorian.Patronymic}" Margin="5,0"/>
                                             </StackPanel>
                                         </Label>
-                                        <Button Grid.Row="4" Content="Показать" Margin="2" Height="30" Background="GreenYellow"/>
+                                        <Button Grid.Row="4" Content="Показать" Margin="2" Height="30" Background="GreenYellow" Click="ButtonDetailsShow_Click" Cursor="Hand"/>
                                     </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -219,7 +225,7 @@
 
                                         <TextBlock Grid.Column="2" Grid.Row="0" Text=""/>
 
-                                        <Button Grid.Row="0" Grid.Column="6" Grid.RowSpan="4" Content="Показать" Margin="2" Height="30" Background="GreenYellow"/>
+                                        <Button Grid.Row="0" Grid.Column="6" Grid.RowSpan="4" Content="Показать" Margin="2" Height="30" Background="GreenYellow" Click="ButtonDetailsShow_Click" Cursor="Hand"/>
                                     </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>

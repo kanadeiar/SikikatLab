@@ -37,8 +37,8 @@
 
         </Grid>
         <UniformGrid Rows="1">
-            <Button Content="Добавить" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Background="SpringGreen"/>
-            <Button Content="Отмена" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Background="Yellow" Click="ButtonBase_OnClick"/>
+            <Button Content="Добавить" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Background="SpringGreen" Cursor="Hand"/>
+            <Button Content="Отмена" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Background="Yellow" Click="ButtonBase_OnClick" Cursor="Hand"/>
 
 
         </UniformGrid>

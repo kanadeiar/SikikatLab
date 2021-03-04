@@ -40,14 +40,47 @@ namespace SilikatLabWpf.Data
             Research = Researches[rand.Next(Researches.Count - 1)],
             ResearchObject = ResearchObjects[rand.Next(ResearchObjects.Count - 1)],
         }).ToList();
-        public static List<WorkResult> WorkResults { get; } = Enumerable.Range(1, 10).Select(i => new WorkResult
+
+        public static List<WorkResult> WorkResults
         {
-            DateTime = WorkTasks[i - 1].DateTime,
-            WorkTask = WorkTasks[i - 1],
-            WorkShift = WorkShifts[rand.Next(WorkShifts.Count - 1)],
-            Laboratorian = Laboratorians[rand.Next(Laboratorians.Count - 1)],
-            Name = $"Результаты исследования № {i}",
-            Value = rand.NextDouble() * 100.0,
-        }).ToList();
+            get
+            {
+                var list = Enumerable.Range(1, 10).Select(i => new WorkResult
+                {
+                    DateTime = WorkTasks[i - 1].DateTime,
+                    WorkTask = WorkTasks[i - 1],
+                    WorkShift = WorkShifts[rand.Next(WorkShifts.Count - 1)],
+                    Laboratorian = Laboratorians[rand.Next(Laboratorians.Count - 1)],
+                    Name = $"Результаты исследования № {i}",
+                    Value = rand.NextDouble() * 100.0,
+                    Result = (rand.NextDouble() * 100.0).ToString("F") + " едениц",
+                }).ToList();
+                list[1] = new QualityBlockWorkResult
+                {
+                    DateTime = WorkTasks[1].DateTime,
+                    WorkTask = WorkTasks[1],
+                    WorkShift = WorkShifts[rand.Next(WorkShifts.Count - 1)],
+                    Laboratorian = Laboratorians[rand.Next(Laboratorians.Count - 1)],
+                    Name = $"Результаты исследования прочности № 1",
+                    Value = rand.NextDouble() + 2.0,
+                    Result = "Норма",
+                    Format = "D500 600*300*200",
+                    NumAutoclave = 2,
+                    Weight = 663.44,
+                    SizeX = 10.0,
+                    SizeY = 9.9,
+                    SizeZ = 9.8,
+                    Density = 657.1,
+                    Coefficient = 1.15,
+                    BeforeWeight = 640.94,
+                    AfterWeight = 506.6,
+                    Humidity = 29.4,
+                    Load = 28.25,
+                    Strength = 32.25,
+                    AfterDensity = 519.1,
+                };
+                return list;
+            }
+        } 
     }
 }

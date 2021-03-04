@@ -7,7 +7,8 @@
         xmlns:m="clr-namespace:SilikatLabWpf.Models"
         xmlns:local="clr-namespace:SilikatLabWpf"
         mc:Ignorable="d"
-        Title="{x:Static data:TestData.Title}" Height="600" Width="900">
+        Title="{x:Static data:TestData.Title}" Height="600" Width="900"
+        WindowStartupLocation="CenterScreen">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Авторизация">
@@ -41,7 +42,7 @@
                 <Button Content="Обновить данные" Background="DeepSkyBlue" Height="40" Cursor="Hand"/>
             </ToolBar>
             <ToolBar BandIndex="2">
-                <Button Content="Отчет за сутки" Background="Yellow" Height="40" Cursor="Hand"/>
+                <Button Content="Сводный отчет" Background="Yellow" Height="40" Cursor="Hand"/>
             </ToolBar>
         </ToolBarTray>
         <StatusBar DockPanel.Dock="Bottom">
@@ -209,8 +210,8 @@
                                         <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding DateTime}" FontWeight="Bold"/>
                                         <TextBlock Grid.Column="0" Grid.Row="1" Text="Название:"/>
                                         <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Name}"/>
-                                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Результат:"/>
-                                        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Value, StringFormat={}{0:F2} градусов}"/>
+                                        <TextBlock Grid.Column="0" Grid.Row="2" Text="Вид:"/>
+                                        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding WorkTask.Research.Name}"/>
 
                                         <TextBlock Grid.Column="3" Grid.Row="0" Text="Лаборант:" FontStyle="Italic"/>
                                         <Label Grid.Column="4" Grid.Row="0" Margin="-5" FontStyle="Italic">
@@ -222,9 +223,8 @@
                                         </Label>
                                         <TextBlock Grid.Column="3" Grid.Row="1" Text="Смена:"/>
                                         <TextBlock Grid.Column="4" Grid.Row="1" Text="{Binding WorkShift.Name}"/>
-
-                                        <TextBlock Grid.Column="2" Grid.Row="0" Text=""/>
-
+                                        <TextBlock Grid.Column="3" Grid.Row="2" Text="Результат:"/>
+                                        <TextBlock Grid.Column="4" Grid.Row="2" Text="{Binding Result}"/>
                                         <Button Grid.Row="0" Grid.Column="6" Grid.RowSpan="4" Content="Показать" Margin="2" Height="30" Background="GreenYellow" Click="ButtonDetailsShow_Click" Cursor="Hand"/>
                                     </Grid>
                                 </DataTemplate>

@@ -7,7 +7,7 @@
         xmlns:data="clr-namespace:SilikatLabWpf.Data"
         xmlns:m="clr-namespace:SilikatLabWpf.Models"
         mc:Ignorable="d"
-        Title="Детальные результаты лабораторных анализов" Height="400" Width="400" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+        Title="Детальные результаты лабораторных анализов" Height="400" Width="500" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
     <DockPanel>
         <Grid DockPanel.Dock="Top" Margin="10">
             <Grid.ColumnDefinitions>

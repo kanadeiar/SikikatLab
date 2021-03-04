@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+using SilikatLabWpf.Models;
 using SilikatLabWpf.Windows;
 
 namespace SilikatLabWpf
@@ -22,9 +24,17 @@ namespace SilikatLabWpf
 
         private void ButtonDetailsShow_Click(object sender, RoutedEventArgs e)
         {
-            var window = new DetailsResultWindow();
-            window.Owner = this;
-            window.ShowDialog();
+            var element = ((Button) sender).DataContext as WorkResult;
+            if (element is QualityBlockWorkResult qualityBlock)
+            {
+                var window = new DetailsQualityResultWindow {Owner = this};
+                window.ShowDialog();
+            }
+            else
+            {
+                var window = new DetailsResultWindow {Owner = this};
+                window.ShowDialog();
+            }
         }
 
         private void ButtonAddNewDetailsResult_Click(object sender, RoutedEventArgs e)

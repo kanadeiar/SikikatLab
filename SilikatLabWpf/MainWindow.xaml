@@ -39,10 +39,10 @@
                 <Button Content="Внести новые результаты анализов" Background="Aqua" Height="40" Cursor="Hand" Click="ButtonAddNewDetailsResult_Click"/>
             </ToolBar>
             <ToolBar BandIndex="1">
-                <Button Content="Обновить данные" Background="DeepSkyBlue" Height="40" Cursor="Hand"/>
+                <Button Content="Обновить данные" Background="Gray" Height="40" Cursor="Hand" IsEnabled="False"/>
             </ToolBar>
             <ToolBar BandIndex="2">
-                <Button Content="Сводный отчет" Background="Yellow" Height="40" Cursor="Hand"/>
+                <Button Content="Сводный отчет Excel" Background="Yellow" Height="40" Cursor="Hand" Click="ButtonReportInExcel_OnClick"/>
             </ToolBar>
         </ToolBarTray>
         <StatusBar DockPanel.Dock="Bottom">

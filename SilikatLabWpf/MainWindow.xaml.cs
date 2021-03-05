@@ -1,7 +1,12 @@
-﻿using System.Windows;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
+using OfficeOpenXml;
 using SilikatLabWpf.Models;
 using SilikatLabWpf.Windows;
+
 
 namespace SilikatLabWpf
 {
@@ -53,6 +58,45 @@ namespace SilikatLabWpf
         {
             TabItemEditData.Visibility = Visibility.Collapsed;
             TabItemShow.IsSelected = true;
+        }
+
+        private void ButtonReportInExcel_OnClick(object sender, RoutedEventArgs e)
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            var finfo = new FileInfo(Path.Combine( Environment.CurrentDirectory, "TemplateSvod.xlsx"));
+            using ExcelPackage excel = new ExcelPackage(finfo);
+            var worksheet = excel.Workbook.Worksheets[0];
+            var i = 0;
+            worksheet.Cells[3, 1].Value = "01.01.2021";
+            worksheet.Cells[4, ++i].Value = "1-я смена";
+            worksheet.Cells[4, ++i].Value = 84.19;
+            worksheet.Cells[4, ++i].Value = 85;
+            worksheet.Cells[4, ++i].Value = 20.3;
+            worksheet.Cells[4, ++i].Value = 663.44;
+            worksheet.Cells[4, ++i].Value = 89.0;
+            worksheet.Cells[4, ++i].Value = 100;
+            worksheet.Cells[4, ++i].Value = 2.2;
+            worksheet.Cells[4, ++i].Value = 657.44;
+            worksheet.Cells[4, ++i].Value = 1.15;
+            worksheet.Cells[4, ++i].Value = 640.94;
+            worksheet.Cells[4, ++i].Value = 506.4;
+            worksheet.Cells[4, ++i].Value = 2980.1;
+            worksheet.Cells[4, ++i].Value = 21.04;
+            worksheet.Cells[4, ++i].Value = 38.1;
+            worksheet.Cells[4, ++i].Value = 506.4;
+            worksheet.Cells[4, ++i].Value = 2980.1;
+            worksheet.Cells[4, ++i].Value = 21.04;
+            worksheet.Cells[4, ++i].Value = 38.1;
+            worksheet.Cells[4, ++i].Value = 38.1;
+            i++;
+            worksheet.Cells[4, ++i].Value = 38.1;
+
+
+
+
+            var finfoSave = new FileInfo(Path.Combine(Environment.CurrentDirectory, "Test1.xlsx"));
+            excel.SaveAs(finfoSave);
+            MessageBox.Show("Файл успешно сохранен по пути:\n" + finfoSave.FullName);
         }
     }
 }

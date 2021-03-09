@@ -6,7 +6,7 @@ namespace SilikatLabWpf.Data
     public class LaboratorianDb : DbContext
     {
         public DbSet<Laboratorian> Laboratorians { get; set; }
-
+        public DbSet<TestResult> TestResults { get; set; }
 
 
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -19,7 +20,9 @@ namespace SilikatLabWpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        DbContextOptions<LaboratorianDb> _options;
+        private DbContextOptions<LaboratorianDb> _options;
+        private ObservableCollection<TestResult> testResults;
+        private static Random rnd = new Random();
         public MainWindow()
         {
             InitializeComponent();
@@ -118,6 +121,9 @@ namespace SilikatLabWpf
 
             await using var db = new LaboratorianDb(_options);
             await InitDbAsync(db);
+            testResults = new ObservableCollection<TestResult>(db.TestResults);
+
+            DataGridResults.ItemsSource = testResults;
         }
 
         private static async Task InitDbAsync(LaboratorianDb db)
@@ -134,11 +140,41 @@ namespace SilikatLabWpf
                     Name = $"Иван{l}",
                     Patronymic = $"Иванович{l}",
                 }).ToArray();
-                await db.AddRangeAsync(laboratorians);
+                await db.Laboratorians.AddRangeAsync(laboratorians);
+                await db.SaveChangesAsync();
+            }
+            if (await db.TestResults.AnyAsync() == false)
+            {
+                var testResults = Enumerable.Range(1, 2).Select(r => new TestResult
+                {
+                    DateTime = DateTime.Now.AddMinutes(- rnd.Next(920)),
+                    ResearchName = $"Исследование № {r}",
+                    ObjectName = $"Массив № {r}",
+                    WorkShiftName = $"Смена № {r}",
+                    Name = $"Плотность",
+                    Value = rnd.NextDouble() * 100.0,
+                    Result = $"Результаты исследования - 0",
+                    Description = $"Описание {r}",
+                }).ToArray();
+                await db.TestResults.AddRangeAsync(testResults);
                 await db.SaveChangesAsync();
             }
         }
 
 
+        private async void Update_Click(object sender, RoutedEventArgs e)
+        {
+            testResults.Clear();
+            await using var db = new LaboratorianDb(_options);
+            foreach (var res in db.TestResults)
+            {
+                testResults.Add(res);
+            }
+        }
+
+        private void AddNewItemInBase_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

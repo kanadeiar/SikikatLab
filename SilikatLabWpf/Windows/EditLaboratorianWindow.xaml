@@ -29,6 +29,7 @@
             <Button Content="Закрыть" Margin="10" Click="Close_Click">
             </Button>
         </StackPanel>
-        
+        <Border BorderThickness="1" BorderBrush="Black" Grid.Row="1"/>
+
     </Grid>
 </Window>

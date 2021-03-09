@@ -17,7 +17,7 @@
                 <Separator/>
                 <MenuItem Header="Выход"/>
             </MenuItem>
-            <MenuItem Header="Редактировать">
+            <MenuItem Header="Редактировать базу данных">
                 <MenuItem Header="Лаборанты" Click="MenuItemLaboratoriansEdit_Click"/>
             </MenuItem>
             <MenuItem Header="Задания">
@@ -234,13 +234,32 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </GroupBox>
-                    
-
-
-
+                </Grid>
+            </TabItem>
+            <TabItem Header="База данных">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <DataGrid Name="DataGridResults" IsReadOnly="True" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Дата" Binding="{Binding DateTime}"/>
+                            <DataGridTextColumn Header="Название исследования" Binding="{Binding ResearchName}"/>
+                            <DataGridTextColumn Header="Объект" Binding="{Binding ObjectName}"/>
+                            <DataGridTextColumn Header="Смена" Binding="{Binding WorkShiftName}"/>
+                            <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Значение" Binding="{Binding Value}"/>
+                            <DataGridTextColumn Header="Результат" Binding="{Binding  Result}"/>
+                            <DataGridTextColumn Header="Описание" Binding="{Binding Description}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Button Content="Обновить" Padding="10" Margin="10" Click="Update_Click"/>
+                        <Button Content="Внести новые данные в базу" Padding="10" Margin="10" Click="AddNewItemInBase_Click"/>
+                    </StackPanel>
                 </Grid>
             </TabItem>
         </TabControl>
-
     </DockPanel>
 </Window>

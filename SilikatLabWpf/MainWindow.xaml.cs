@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
+using SilikatLabWpf.Data;
 using SilikatLabWpf.Models;
 using SilikatLabWpf.Windows;
 
@@ -15,6 +19,7 @@ namespace SilikatLabWpf
     /// </summary>
     public partial class MainWindow : Window
     {
+        DbContextOptions<LaboratorianDb> _options;
         public MainWindow()
         {
             InitializeComponent();
@@ -98,5 +103,42 @@ namespace SilikatLabWpf
             excel.SaveAs(finfoSave);
             MessageBox.Show("Файл успешно сохранен по пути:\n" + finfoSave.FullName);
         }
+
+        private void MenuItemLaboratoriansEdit_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new EditLaboratorianWindow(_options) {Owner = this};
+            window.ShowDialog();
+        }
+
+
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            _options = new DbContextOptionsBuilder<LaboratorianDb>().UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Laboratorian.DB").Options;
+
+            await using var db = new LaboratorianDb(_options);
+            await InitDbAsync(db);
+        }
+
+        private static async Task InitDbAsync(LaboratorianDb db)
+        {
+            //await db.Database.EnsureDeletedAsync();
+            if (await db.Database.EnsureCreatedAsync())
+                MessageBox.Show("База данных создана заново и заполнена тестовыми данными!");
+
+            if (await db.Laboratorians.AnyAsync() == false)
+            {
+                var laboratorians = Enumerable.Range(1, 2).Select(l => new Laboratorian
+                {
+                    SurName = $"Иванов{l}",
+                    Name = $"Иван{l}",
+                    Patronymic = $"Иванович{l}",
+                }).ToArray();
+                await db.AddRangeAsync(laboratorians);
+                await db.SaveChangesAsync();
+            }
+        }
+
+
     }
 }

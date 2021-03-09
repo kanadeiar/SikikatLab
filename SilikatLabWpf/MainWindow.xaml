@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:SilikatLabWpf"
         mc:Ignorable="d"
         Title="{x:Static data:TestData.Title}" Height="600" Width="900"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Авторизация">
@@ -16,6 +16,9 @@
                 <MenuItem Header="Завершить сеанс" Click="MenuItemDeauth_OnClick"/>
                 <Separator/>
                 <MenuItem Header="Выход"/>
+            </MenuItem>
+            <MenuItem Header="Редактировать">
+                <MenuItem Header="Лаборанты" Click="MenuItemLaboratoriansEdit_Click"/>
             </MenuItem>
             <MenuItem Header="Задания">
                 <MenuItem Header="Новое"/>

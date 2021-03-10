@@ -164,6 +164,11 @@ namespace SilikatLabWpf
 
         private async void Update_Click(object sender, RoutedEventArgs e)
         {
+            await Update_DateDataBaseAsync();
+        }
+
+        private async Task Update_DateDataBaseAsync()
+        {
             testResults.Clear();
             await using var db = new LaboratorianDb(_options);
             foreach (var res in db.TestResults)
@@ -172,9 +177,17 @@ namespace SilikatLabWpf
             }
         }
 
-        private void AddNewItemInBase_Click(object sender, RoutedEventArgs e)
+        private async void AddNewItemInBase_Click(object sender, RoutedEventArgs e)
         {
-            
+            var window = new AddNewItemInBaseWindow() {Owner = this};
+            window.ShowDialog();
+            if (window.DialogResult == true)
+            {
+                await using var db = new LaboratorianDb(_options);
+                await db.AddAsync(window.TestResult);
+                await db.SaveChangesAsync();
+                await Update_DateDataBaseAsync();
+            }
         }
     }
 }

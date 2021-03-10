@@ -19,6 +19,7 @@
             </MenuItem>
             <MenuItem Header="Редактировать базу данных">
                 <MenuItem Header="Лаборанты" Click="MenuItemLaboratoriansEdit_Click"/>
+                <MenuItem Header="Внести новое исследование в базу данных" Click="AddNewItemInBase_Click"/>
             </MenuItem>
             <MenuItem Header="Задания">
                 <MenuItem Header="Новое"/>
@@ -256,7 +257,7 @@
                     </DataGrid>
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
                         <Button Content="Обновить" Padding="10" Margin="10" Click="Update_Click"/>
-                        <Button Content="Внести новые данные в базу" Padding="10" Margin="10" Click="AddNewItemInBase_Click"/>
+                        <Button Content="Внести новое исследование в базу данных" Padding="10" Margin="10" Click="AddNewItemInBase_Click"/>
                     </StackPanel>
                 </Grid>
             </TabItem>

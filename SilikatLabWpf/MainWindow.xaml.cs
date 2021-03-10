@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace SilikatLabWpf
         public MainWindow()
         {
             InitializeComponent();
+
         }
 
         private void ButtonNewTask_Click(object sender, RoutedEventArgs e)
@@ -117,7 +119,8 @@ namespace SilikatLabWpf
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _options = new DbContextOptionsBuilder<LaboratorianDb>().UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Laboratorian.DB").Options;
+            var connectionString = ConfigurationManager.ConnectionStrings["defaultConnection"].ConnectionString;
+            _options = new DbContextOptionsBuilder<LaboratorianDb>().UseSqlServer(connectionString).Options;
 
             await using var db = new LaboratorianDb(_options);
             await InitDbAsync(db);

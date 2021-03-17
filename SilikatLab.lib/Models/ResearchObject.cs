@@ -18,6 +18,6 @@ namespace SilikatLab.lib.Models
         }
 
         /// <summary> Задания </summary>
-        public virtual IEnumerable<WorkTask> WorkTasks { get; set; }
+        public virtual IEnumerable<WorkTask> WorkTasks { get; set; } = new List<WorkTask>();
     }
 }

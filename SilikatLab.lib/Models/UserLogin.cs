@@ -25,6 +25,8 @@ namespace SilikatLab.lib.Models
             get => _Password;
             set => Set(ref _Password, value);
         }
+        /// <summary> Пользователь - лаборант </summary>
+        public virtual Laboratorian Laboratorian { get; set; }
 
         private AccessLevel _Access;
 

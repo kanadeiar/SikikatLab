@@ -58,12 +58,15 @@ namespace SilikatLab.lib.Models
         }
 
         /// <summary> Задание </summary>
+        [Required]
         public virtual WorkTask WorkTask { get; set; }
 
         /// <summary> Лаборант </summary>
+        [Required]
         public virtual Laboratorian Laboratorian { get; set; }
 
         /// <summary> Рабочая смена </summary>
+        [Required]
         public virtual WorkShift WorkShift { get; set; }
     }
 }

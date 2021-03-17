@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using SilikatLab.lib.Models.Base;
 
 namespace SilikatLab.lib.Models
@@ -15,5 +17,8 @@ namespace SilikatLab.lib.Models
             get => _Name;
             set => Set(ref _Name, value);
         }
+
+        /// <summary> Исследования этой смены </summary>
+        public virtual IEnumerable<Research> Researches { get; set; } = new List<Research>();
     }
 }

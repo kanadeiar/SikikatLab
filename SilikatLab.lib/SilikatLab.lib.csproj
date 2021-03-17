@@ -2,10 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>mykey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Researchs\" />
+    <Folder Include="Models\Researches\" />
+    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>

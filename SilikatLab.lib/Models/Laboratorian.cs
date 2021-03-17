@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using SilikatLab.lib.Models.Base;
 
 namespace SilikatLab.lib.Models
@@ -35,5 +37,8 @@ namespace SilikatLab.lib.Models
             get => _Patronymic;
             set => Set(ref _Patronymic, value);
         }
+
+        /// <summary> Исследования </summary>
+        public virtual IEnumerable<Research> Researches { get; set; } = new List<Research>();
     }
 }

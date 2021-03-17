@@ -17,6 +17,20 @@ namespace SilikatLab.lib.Models
         }
 
         /// <summary> Задания </summary>
-        public virtual IEnumerable<WorkTask> WorkTasks { get; set; }
+        public virtual IEnumerable<WorkTask> WorkTasks { get; set; } = new List<WorkTask>();
+
+        private IsTypeResult _isTypeResult;
+
+        /// <summary> Тип результата исследования </summary>
+        public IsTypeResult TypeResult
+        {
+            get => _isTypeResult;
+            set => Set(ref _isTypeResult, value);
+        }
+
+        public enum IsTypeResult
+        {
+            Simple = 0, //одна цифра и текст-описание
+        }
     }
 }

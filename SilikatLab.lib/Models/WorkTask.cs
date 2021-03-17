@@ -55,7 +55,7 @@ namespace SilikatLab.lib.Models
         public virtual ResearchObject ResearchObject { get; set; }
 
         /// <summary> Результаты исследования </summary>
-        public IEnumerable<Research> ResearchResults { get; set; }
+        public IEnumerable<Research> ResearchResults { get; set; } = new List<Research>();
 
     }
 }

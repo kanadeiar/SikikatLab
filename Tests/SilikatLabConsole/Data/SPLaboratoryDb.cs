@@ -29,6 +29,7 @@ namespace SilikatLabConsole.Data
             optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SPLaboratory.DB");
         }
 
+        #region Тестовые данные
 
         public static void RemoveDataFromDb(SPLaboratoryDb db)
         {
@@ -74,10 +75,11 @@ namespace SilikatLabConsole.Data
             //await db.Database.EnsureDeletedAsync();
             //if (await db.Database.EnsureCreatedAsync())
             //    Console.WriteLine("База данных создана заново");
-            db.Database.Migrate();
+            //db.Database.Migrate();
+
             if (!db.Laboratorians.Any())
             {
-                var labors = Enumerable.Range(1, power/3)
+                var labors = Enumerable.Range(1, power / 3)
                     .Select(i => new Laboratorian
                     {
                         SurName = $"Иванова{i}",
@@ -208,5 +210,7 @@ namespace SilikatLabConsole.Data
                 }
             }
         }
+
+        #endregion
     }
 }

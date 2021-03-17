@@ -15,6 +15,8 @@ namespace SilikatLabConsole
             ConsoleToRussian();
             Random rnd = new Random();
 
+            using (var db = new SPLaboratoryDb()) db.Database.Migrate();
+
             using (var db = new SPLaboratoryDb())
             {
                 var tasks = db.WorkTasks
@@ -45,7 +47,6 @@ namespace SilikatLabConsole
                 Console.WriteLine($"Количество исследований: {db.Researches.Count()}");
                 Console.WriteLine($"Запрос:\n{str}");
             }
-
             Console.WriteLine("Нажмите любую кнопку ...");
             Console.ReadKey();
         }

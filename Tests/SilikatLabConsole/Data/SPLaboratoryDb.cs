@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using SilikatLab.lib.Models;
+using SilikatLab.lib.Models.Researches;
 
 namespace SilikatLabConsole.Data
 {
@@ -16,6 +17,7 @@ namespace SilikatLabConsole.Data
         public DbSet<WorkShift> WorkShifts { get; set; }
         public DbSet<WorkTask> WorkTasks { get; set; }
         public DbSet<Research> Researches { get; set; }
+        public DbSet<BlockQualityResearch> BlockQualityResearches { get; set; }
 
         public SPLaboratoryDb() : base()
         {
@@ -33,6 +35,11 @@ namespace SilikatLabConsole.Data
 
         public static void RemoveDataFromDb(SPLaboratoryDb db)
         {
+            if (db.BlockQualityResearches.Any())
+            {
+                db.BlockQualityResearches.RemoveRange(db.BlockQualityResearches);
+                db.SaveChanges();
+            }
             if (db.Researches.Any())
             {
                 db.Researches.RemoveRange(db.Researches);
@@ -208,6 +215,46 @@ namespace SilikatLabConsole.Data
                     db.Researches.AddRange(researches);
                     db.SaveChanges();
                 }
+
+                if (!db.BlockQualityResearches.Any())
+                {
+                    var researches = new List<BlockQualityResearch>();
+                    var tasks = db.WorkTasks.ToArray();
+                    var labolatorians = db.Laboratorians.ToArray();
+                    var workshifts = db.WorkShifts.ToArray();
+                    for (int i = 0; i < power; i++)
+                    {
+                        var task = tasks[rnd.Next(tasks.Length)];
+                        researches.Add(new BlockQualityResearch
+                        {
+                            DateTime = task.TaskDateTime.AddMinutes(rnd.Next(5, 60)),
+                            Name = $"Результат исследования прочности № {i}",
+                            Value = rnd.NextDouble() * 100.0,
+                            Text = $"Результат № {i} удовлетворителен.",
+                            Description = $"Описание результата исследования № {i}",
+                            WorkTask = task,
+                            Laboratorian = labolatorians[rnd.Next(labolatorians.Length)],
+                            WorkShift = workshifts[rnd.Next(workshifts.Length)],
+                            Format = "600*300*200",
+                            Trademark = "D500",
+                            Weight = (float)rnd.NextDouble() * 30.0f + 600.0f,
+                            SizeX = (float)rnd.NextDouble() + 10.0f,
+                            SizeY = (float)rnd.NextDouble() + 10.0f,
+                            SizeZ = (float)rnd.NextDouble() + 10.0f,
+                            BeforeDensity = (float)rnd.NextDouble() * 70.0f + 600.0f,
+                            Coefficient = 1.15f,
+                            BeforeWeight = (float)rnd.NextDouble() * 50.0f + 600.0f,
+                            AfterWeight = (float)rnd.NextDouble() * 50.0f + 500.0f,
+                            Humidity = (float)rnd.NextDouble() + 30.0f,
+                            Load = (float)rnd.NextDouble() + 30.0f,
+                            Strength = (float)rnd.NextDouble() + 3.0f,
+                            AfterDensity = (float)rnd.NextDouble() * 50.0f + 500.0f,
+                        });
+                    }
+                    db.BlockQualityResearches.AddRange(researches);
+                    db.SaveChanges();
+                }
+
             }
         }
 

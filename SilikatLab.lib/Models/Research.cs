@@ -61,6 +61,9 @@ namespace SilikatLab.lib.Models
         [Required]
         public virtual WorkTask WorkTask { get; set; }
 
+        /// <summary> Объект исследования - возможное уточнение </summary>
+        public virtual ResearchObject ResearchObject { get; set; }
+
         /// <summary> Лаборант </summary>
         [Required]
         public virtual Laboratorian Laboratorian { get; set; }

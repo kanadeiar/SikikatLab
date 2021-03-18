@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SilikatLabConsole.Data;
 
 namespace SilikatLabConsole.Migrations
 {
     [DbContext(typeof(SPLaboratoryDb))]
-    partial class SPLaboratoryDbModelSnapshot : ModelSnapshot
+    [Migration("20210318091956_add_details_of_object_for_research")]
+    partial class add_details_of_object_for_research
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -250,59 +252,6 @@ namespace SilikatLabConsole.Migrations
                     b.ToTable("WorkTasks");
                 });
 
-            modelBuilder.Entity("SilikatLab.lib.Models.Researches.BlockQualityResearch", b =>
-                {
-                    b.HasBaseType("SilikatLab.lib.Models.Research");
-
-                    b.Property<float>("AfterDensity")
-                        .HasColumnType("real");
-
-                    b.Property<float>("AfterWeight")
-                        .HasColumnType("real");
-
-                    b.Property<float>("BeforeDensity")
-                        .HasColumnType("real");
-
-                    b.Property<float>("BeforeWeight")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Coefficient")
-                        .HasColumnType("real");
-
-                    b.Property<string>("Format")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.Property<float>("Humidity")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Load")
-                        .HasColumnType("real");
-
-                    b.Property<float>("SizeX")
-                        .HasColumnType("real");
-
-                    b.Property<float>("SizeY")
-                        .HasColumnType("real");
-
-                    b.Property<float>("SizeZ")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Strength")
-                        .HasColumnType("real");
-
-                    b.Property<string>("Trademark")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<float>("Weight")
-                        .HasColumnType("real");
-
-                    b.ToTable("BlockQualityReearches");
-                });
-
             modelBuilder.Entity("SilikatLab.lib.Models.Research", b =>
                 {
                     b.HasOne("SilikatLab.lib.Models.Laboratorian", "Laboratorian")
@@ -358,15 +307,6 @@ namespace SilikatLabConsole.Migrations
                     b.Navigation("ResearchObject");
 
                     b.Navigation("TypeResearch");
-                });
-
-            modelBuilder.Entity("SilikatLab.lib.Models.Researches.BlockQualityResearch", b =>
-                {
-                    b.HasOne("SilikatLab.lib.Models.Research", null)
-                        .WithOne()
-                        .HasForeignKey("SilikatLab.lib.Models.Researches.BlockQualityResearch", "Id")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("SilikatLab.lib.Models.Laboratorian", b =>

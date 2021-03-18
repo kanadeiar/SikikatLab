@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SilikatLabConsole.Data;
 
 namespace SilikatLabConsole.Migrations
 {
     [DbContext(typeof(SPLaboratoryDb))]
-    partial class SPLaboratoryDbModelSnapshot : ModelSnapshot
+    [Migration("20210318093740_block-quality-researches")]
+    partial class blockqualityresearches
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

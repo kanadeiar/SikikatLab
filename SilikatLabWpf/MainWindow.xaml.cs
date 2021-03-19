@@ -21,8 +21,8 @@ namespace SilikatLabWpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        private DbContextOptions<LaboratorianDb> _options;
-        private ObservableCollection<TestResult> testResults;
+        //private DbContextOptions<LaboratorianDb> _options;
+        //private ObservableCollection<TestResult> testResults;
         private static Random rnd = new Random();
         public MainWindow()
         {
@@ -111,22 +111,22 @@ namespace SilikatLabWpf
 
         private void MenuItemLaboratoriansEdit_Click(object sender, RoutedEventArgs e)
         {
-            var window = new EditLaboratorianWindow(_options) {Owner = this};
-            window.ShowDialog();
+            //var window = new EditLaboratorianWindow(_options) {Owner = this};
+            //window.ShowDialog();
         }
 
 
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["defaultConnection"].ConnectionString;
-            _options = new DbContextOptionsBuilder<LaboratorianDb>().UseSqlServer(connectionString).Options;
+            //var connectionString = ConfigurationManager.ConnectionStrings["defaultConnection"].ConnectionString;
+            //_options = new DbContextOptionsBuilder<LaboratorianDb>().UseSqlServer(connectionString).Options;
 
-            await using var db = new LaboratorianDb(_options);
-            await InitDbAsync(db);
-            testResults = new ObservableCollection<TestResult>(db.TestResults);
+            //await using var db = new LaboratorianDb(_options);
+            //await InitDbAsync(db);
+            //testResults = new ObservableCollection<TestResult>(db.TestResults);
 
-            DataGridResults.ItemsSource = testResults;
+            //DataGridResults.ItemsSource = testResults;
         }
 
         private static async Task InitDbAsync(LaboratorianDb db)
@@ -172,25 +172,25 @@ namespace SilikatLabWpf
 
         private async Task Update_DateDataBaseAsync()
         {
-            testResults.Clear();
-            await using var db = new LaboratorianDb(_options);
-            foreach (var res in db.TestResults)
-            {
-                testResults.Add(res);
-            }
+            //testResults.Clear();
+            //await using var db = new LaboratorianDb(_options);
+            //foreach (var res in db.TestResults)
+            //{
+            //    testResults.Add(res);
+            //}
         }
 
         private async void AddNewItemInBase_Click(object sender, RoutedEventArgs e)
         {
-            var window = new AddNewItemInBaseWindow() {Owner = this};
-            window.ShowDialog();
-            if (window.DialogResult == true)
-            {
-                await using var db = new LaboratorianDb(_options);
-                await db.AddAsync(window.TestResult);
-                await db.SaveChangesAsync();
-                await Update_DateDataBaseAsync();
-            }
+            //var window = new AddNewItemInBaseWindow() {Owner = this};
+            //window.ShowDialog();
+            //if (window.DialogResult == true)
+            //{
+            //    await using var db = new LaboratorianDb(_options);
+            //    await db.AddAsync(window.TestResult);
+            //    await db.SaveChangesAsync();
+            //    await Update_DateDataBaseAsync();
+            //}
         }
     }
 }

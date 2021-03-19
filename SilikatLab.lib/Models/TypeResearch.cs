@@ -31,6 +31,7 @@ namespace SilikatLab.lib.Models
         public enum IsTypeResult
         {
             Simple = 0, //одна цифра и текст-описание
+            BlockQualityResearch,
         }
     }
 }

@@ -139,7 +139,12 @@ namespace SilikatLabConsole.Data
                         {
                             Name = $"Вид исследования № {i}",
                             TypeResult = TypeResearch.IsTypeResult.Simple,
-                        });
+                        }).ToList();
+                    types.Add(new TypeResearch
+                    {
+                        Name = "Исследование прочности блока",
+                        TypeResult = TypeResearch.IsTypeResult.BlockQualityResearch,
+                    });
                     db.TypeResearches.AddRange(types);
                     db.SaveChanges();
                 }
@@ -164,8 +169,7 @@ namespace SilikatLabConsole.Data
                             DateTime = DateTime.Now.AddHours(-rnd.Next(12, 48)),
                             TaskDateTime = DateTime.Now.AddHours(rnd.Next(-12, 12)),
                             Name = $"Задание № {i}",
-                            AgainInMinutes = 0,
-                            TypeResearch = types[rnd.Next(types.Length)],
+                            TypeResearch = types.First(t => t.TypeResult == TypeResearch.IsTypeResult.Simple),
                             ResearchObject = objects[rnd.Next(objects.Length)],
                         }).ToList();
                     tasks.Add(new WorkTask
@@ -174,7 +178,7 @@ namespace SilikatLabConsole.Data
                         TaskDateTime = DateTime.Now.AddMinutes(10),
                         Name = $"Периодическое задание каждые 10 минут",
                         AgainInMinutes = 10,
-                        TypeResearch = types[rnd.Next(types.Length)],
+                        TypeResearch = types.First(t => t.TypeResult == TypeResearch.IsTypeResult.Simple),
                         ResearchObject = objects[rnd.Next(objects.Length)],
                     });
                     tasks.Add(new WorkTask
@@ -183,7 +187,15 @@ namespace SilikatLabConsole.Data
                         TaskDateTime = DateTime.Now.AddMinutes(60),
                         Name = $"Периодическое задание каждый час",
                         AgainInMinutes = 60,
-                        TypeResearch = types[rnd.Next(types.Length)],
+                        TypeResearch = types.First(t => t.TypeResult == TypeResearch.IsTypeResult.Simple),
+                        ResearchObject = objects[rnd.Next(objects.Length)],
+                    });
+                    tasks.Add(new WorkTask
+                    {
+                        DateTime = DateTime.Now.AddHours(-rnd.Next(12, 48)),
+                        TaskDateTime = DateTime.Now.AddMinutes(60),
+                        Name = $"Задание исследования прочности",
+                        TypeResearch = types.First(t => t.TypeResult == TypeResearch.IsTypeResult.BlockQualityResearch),
                         ResearchObject = objects[rnd.Next(objects.Length)],
                     });
                     db.WorkTasks.AddRange(tasks);
@@ -231,7 +243,7 @@ namespace SilikatLabConsole.Data
                             Name = $"Результат исследования прочности № {i}",
                             Value = rnd.NextDouble() * 100.0,
                             Text = $"Результат № {i} удовлетворителен.",
-                            Description = $"Описание результата исследования № {i}",
+                            Description = $"Описание результата исследования пр-ти № {i}",
                             WorkTask = task,
                             Laboratorian = labolatorians[rnd.Next(labolatorians.Length)],
                             WorkShift = workshifts[rnd.Next(workshifts.Length)],

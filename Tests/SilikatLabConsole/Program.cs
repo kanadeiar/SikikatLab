@@ -18,74 +18,10 @@ namespace SilikatLabConsole
 
             using (var db = new SPLaboratoryDb()) db.Database.Migrate();
 
-            //using (var db = new SPLaboratoryDb())
-            //{
-            //    var types = new List<TypeResearch>();
-            //    types.Add(new TypeResearch
-            //    {
-            //        Name = "Исследование прочности блока",
-            //        TypeResult = TypeResearch.IsTypeResult.BlockQualityResearch,
-            //    });
-            //    db.TypeResearches.AddRange(types);
-            //    db.SaveChanges();
-            //}
-
-            //using (var db = new SPLaboratoryDb())
-            //{
-            //    var tasks = new List<WorkTask>();
-            //    var types = db.TypeResearches.ToArray();
-            //    var objects = db.ResearchObjects.ToArray();
-            //    tasks.Add(new WorkTask
-            //    {
-            //        DateTime = DateTime.Now.AddHours(-rnd.Next(12, 48)),
-            //        TaskDateTime = DateTime.Now.AddMinutes(60),
-            //        Name = $"Задание исследования прочности",
-            //        TypeResearch = types.First(t => t.TypeResult == TypeResearch.IsTypeResult.BlockQualityResearch),
-            //        ResearchObject = objects[rnd.Next(objects.Length)],
-            //    });
-            //    db.WorkTasks.AddRange(tasks);
-            //    db.SaveChanges();
-            //}
-
-            //using (var db = new SPLaboratoryDb())
-            //{
-            //    var researches = new List<BlockQualityResearch>();
-            //    var tasks = db.WorkTasks.Where(t => t.TypeResearch.TypeResult == TypeResearch.IsTypeResult.BlockQualityResearch).ToArray();
-            //    var labolatorians = db.Laboratorians.ToArray();
-            //    var workshifts = db.WorkShifts.ToArray();
-            //    for (int i = 0; i < 10; i++)
-            //    {
-            //        var task = tasks[rnd.Next(tasks.Length)];
-            //        researches.Add(new BlockQualityResearch
-            //        {
-            //            DateTime = task.TaskDateTime.AddMinutes(rnd.Next(5, 60)),
-            //            Name = $"Результат исследования прочности № {i}",
-            //            Value = rnd.NextDouble() * 100.0,
-            //            Text = $"Результат № {i} удовлетворителен.",
-            //            Description = $"Описание результата исследования пр-ти № {i}",
-            //            WorkTask = task,
-            //            Laboratorian = labolatorians[rnd.Next(labolatorians.Length)],
-            //            WorkShift = workshifts[rnd.Next(workshifts.Length)],
-            //            Format = "600*300*200",
-            //            Trademark = "D500",
-            //            Weight = (float)rnd.NextDouble() * 30.0f + 600.0f,
-            //            SizeX = (float)rnd.NextDouble() + 10.0f,
-            //            SizeY = (float)rnd.NextDouble() + 10.0f,
-            //            SizeZ = (float)rnd.NextDouble() + 10.0f,
-            //            BeforeDensity = (float)rnd.NextDouble() * 70.0f + 600.0f,
-            //            Coefficient = 1.15f,
-            //            BeforeWeight = (float)rnd.NextDouble() * 50.0f + 600.0f,
-            //            AfterWeight = (float)rnd.NextDouble() * 50.0f + 500.0f,
-            //            Humidity = (float)rnd.NextDouble() + 30.0f,
-            //            Load = (float)rnd.NextDouble() + 30.0f,
-            //            Strength = (float)rnd.NextDouble() + 3.0f,
-            //            AfterDensity = (float)rnd.NextDouble() * 50.0f + 500.0f,
-            //        });
-            //    }
-            //    db.BlockQualityResearches.AddRange(researches);
-            //    db.SaveChanges();
-            //}
-
+            using (var db = new SPLaboratoryDb())
+            {
+                SPLaboratoryDb.AddTestDataToDB(db);
+            }
 
             //using (var db = new SPLaboratoryDb())
             //{
@@ -116,8 +52,11 @@ namespace SilikatLabConsole
                 {
                     var label = obj switch
                     {
-                        BlockQualityResearch r => $"Прочность: {r.DateTime}\t {r.Name} зн: {r.Value} т: {r.Text} л-т: {r.Laboratorian.SurName} {r.Laboratorian.Name} {r.Laboratorian.Patronymic} задание: {r.WorkTask.Name} смена: {r.WorkShift.Name}\n\tМарка: {r.Trademark} Формат: {r.Format} Масса: {r.Weight} Размеры: {r.SizeX} {r.SizeY} {r.SizeZ} Плотность сырая: {r.BeforeDensity} Коэфф.: {r.Coefficient} Масса сырая: {r.BeforeWeight} Масса сушеная: {r.AfterWeight} Влажность: {r.Humidity} Нагрузка: {r.Load}",
-                        { } r => $"Простой: {r.DateTime}\t {r.Name} зн: {r.Value} т: {r.Text} л-т: {r.Laboratorian.SurName} {r.Laboratorian.Name} {r.Laboratorian.Patronymic} задание: {r.WorkTask.Name} смена: {r.WorkShift.Name}",
+                        BlockQualityResearch r => $"{r.DateTime}\t {r.Name}, зн: {r.Value} т: {r.Text} - {((r.Normal) ? "Отлично" : "Плохо")} л-т: {r.Laboratorian.SurName} задание: {r.WorkTask.Name} смена: {r.WorkShift.Name} прочность: Марка: {r.Trademark} Формат: {r.Format} Масса: {r.Weight} Размеры: {r.SizeX} {r.SizeY} {r.SizeZ}",
+                        SludgeResearch r => $"{r.DateTime}\t {r.Name}, зн: {r.Value} т: {r.Text} - {((r.Normal) ? "Отлично" : "Плохо")} л-т: {r.Laboratorian.SurName} задание: {r.WorkTask.Name} смена: {r.WorkShift.Name} шлам: плотность: {r.Density} сито: {r.Sieve0_8}",
+                        CementResearch r => $"{r.DateTime}\t {r.Name}, зн: {r.Value} т: {r.Text} - {((r.Normal) ? "Отлично" : "Плохо")} л-т: {r.Laboratorian.SurName} задание: {r.WorkTask.Name} смена: {r.WorkShift.Name} цемент: Паспортное в/ц: {r.PassportVc} фактическое в/ц: {r.ActualVc} откуда: {r.FromName}",
+                        HammerBinderResearch r => $"{r.DateTime}\t {r.Name}, зн: {r.Value} т: {r.Text} - {((r.Normal) ? "Отлично" : "Плохо")} л-т: {r.Laboratorian.SurName} задание: {r.WorkTask.Name} смена: {r.WorkShift.Name} молото-вяжущее: поверхность: {r.Surface} активность: {r.Activity}",
+                        { } r => $"{r.DateTime}\t {r.Name}, зн: {r.Value} т: {r.Text} - {((r.Normal) ? "Отлично" : "Плохо")} л-т: {r.Laboratorian.SurName} задание: {r.WorkTask.Name} смена: {r.WorkShift.Name}",
                         _ => "Неизвестный",
                     };
                     Console.WriteLine(label);

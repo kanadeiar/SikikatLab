@@ -47,6 +47,15 @@ namespace SilikatLab.lib.Models
             set => Set(ref _Text, value);
         }
 
+        private bool _Normal;
+
+        /// <summary> Норма </summary>
+        public bool Normal
+        {
+            get => _Normal;
+            set => Set(ref _Normal, value);
+        }
+
         private string _Description;
 
         /// <summary> Примечание </summary>

@@ -30,8 +30,16 @@ namespace SilikatLab.lib.Models
 
         public enum IsTypeResult
         {
-            Simple = 0, //одна цифра и текст-описание
-            BlockQualityResearch,
+            /// <summary> Простое исследование - цифра и текст </summary>
+            Simple = 0, 
+            /// <summary> Контроль качества блоков </summary>
+            BlockQualityResearch, 
+            /// <summary> Исследование шлама </summary>
+            SludgeResearch, 
+            /// <summary> Исследование цемента </summary>
+            CementReseatch, 
+            /// <summary> Исследование молото-вяжущего </summary>
+            HammerBinderResearch, 
         }
     }
 }

@@ -7,17 +7,31 @@ using SilikatLab.lib.Models.Researches;
 
 namespace SilikatLabConsole.Data
 {
-    /// <summary> Лабораторная база данных </summary>
+    /// <summary> Лабораторная база данных Силикат Плюс </summary>
     class SPLaboratoryDb : DbContext
     {
+        /// <summary> Авторизация пользователей </summary>
         public DbSet<UserLogin> UserLogins { get; set; }
+        /// <summary> Лаборанты </summary>
         public DbSet<Laboratorian> Laboratorians { get; set; }
+        /// <summary> Объекты исследования </summary>
         public DbSet<ResearchObject> ResearchObjects { get; set; }
+        /// <summary> Вид исследования </summary>
         public DbSet<TypeResearch> TypeResearches { get; set; }
+        /// <summary> Рабочие смены </summary>
         public DbSet<WorkShift> WorkShifts { get; set; }
+        /// <summary> Задания </summary>
         public DbSet<WorkTask> WorkTasks { get; set; }
+        /// <summary> Результаты исследования </summary>
         public DbSet<Research> Researches { get; set; }
+        /// <summary> Результаты исследования качества блоков </summary>
         public DbSet<BlockQualityResearch> BlockQualityResearches { get; set; }
+        /// <summary> Результаты исследования шлама </summary>
+        public DbSet<SludgeResearch> SludgeResearches { get; set; }
+        /// <summary> Результаты исследования цемента </summary>
+        public DbSet<CementResearch> CementResearches { get; set; }
+        /// <summary> Результаты исследования молото-вяжущего </summary>
+        public DbSet<HammerBinderResearch> HammerBinderResearches { get; set; }
 
         public SPLaboratoryDb() : base()
         {
@@ -35,6 +49,21 @@ namespace SilikatLabConsole.Data
 
         public static void RemoveDataFromDb(SPLaboratoryDb db)
         {
+            if (db.HammerBinderResearches.Any())
+            {
+                db.HammerBinderResearches.RemoveRange(db.HammerBinderResearches);
+                db.SaveChanges();
+            }
+            if (db.CementResearches.Any())
+            {
+                db.CementResearches.RemoveRange(db.CementResearches);
+                db.SaveChanges();
+            }
+            if (db.SludgeResearches.Any())
+            {
+                db.SludgeResearches.RemoveRange(db.SludgeResearches);
+                db.SaveChanges();
+            }
             if (db.BlockQualityResearches.Any())
             {
                 db.BlockQualityResearches.RemoveRange(db.BlockQualityResearches);
@@ -145,6 +174,21 @@ namespace SilikatLabConsole.Data
                         Name = "Исследование прочности блока",
                         TypeResult = TypeResearch.IsTypeResult.BlockQualityResearch,
                     });
+                    types.Add(new TypeResearch
+                    {
+                        Name = "Исследование шлама",
+                        TypeResult = TypeResearch.IsTypeResult.SludgeResearch,
+                    });
+                    types.Add(new TypeResearch
+                    {
+                        Name = "Исследование цемента",
+                        TypeResult = TypeResearch.IsTypeResult.CementReseatch,
+                    });
+                    types.Add(new TypeResearch
+                    {
+                        Name = "Исследование молото-вяжущего",
+                        TypeResult = TypeResearch.IsTypeResult.HammerBinderResearch,
+                    });
                     db.TypeResearches.AddRange(types);
                     db.SaveChanges();
                 }
@@ -198,6 +242,30 @@ namespace SilikatLabConsole.Data
                         TypeResearch = types.First(t => t.TypeResult == TypeResearch.IsTypeResult.BlockQualityResearch),
                         ResearchObject = objects[rnd.Next(objects.Length)],
                     });
+                    tasks.Add(new WorkTask
+                    {
+                        DateTime = DateTime.Now.AddHours(-rnd.Next(12, 48)),
+                        TaskDateTime = DateTime.Now.AddMinutes(80),
+                        Name = $"Задание исследования шлама",
+                        TypeResearch = types.First(t => t.TypeResult == TypeResearch.IsTypeResult.SludgeResearch),
+                        ResearchObject = objects[rnd.Next(objects.Length)],
+                    });
+                    tasks.Add(new WorkTask
+                    {
+                        DateTime = DateTime.Now.AddHours(-rnd.Next(12, 48)),
+                        TaskDateTime = DateTime.Now.AddMinutes(120),
+                        Name = $"Задание исследования цемента",
+                        TypeResearch = types.First(t => t.TypeResult == TypeResearch.IsTypeResult.CementReseatch),
+                        ResearchObject = objects[rnd.Next(objects.Length)],
+                    });
+                    tasks.Add(new WorkTask
+                    {
+                        DateTime = DateTime.Now.AddHours(-rnd.Next(12, 48)),
+                        TaskDateTime = DateTime.Now.AddMinutes(160),
+                        Name = $"Задание исследования молото-вяжущего",
+                        TypeResearch = types.First(t => t.TypeResult == TypeResearch.IsTypeResult.HammerBinderResearch),
+                        ResearchObject = objects[rnd.Next(objects.Length)],
+                    });
                     db.WorkTasks.AddRange(tasks);
                     db.SaveChanges();
                 }
@@ -231,7 +299,7 @@ namespace SilikatLabConsole.Data
                 if (!db.BlockQualityResearches.Any())
                 {
                     var researches = new List<BlockQualityResearch>();
-                    var tasks = db.WorkTasks.ToArray();
+                    var tasks = db.WorkTasks.Where(t => t.TypeResearch.TypeResult == TypeResearch.IsTypeResult.BlockQualityResearch).ToArray();
                     var labolatorians = db.Laboratorians.ToArray();
                     var workshifts = db.WorkShifts.ToArray();
                     for (int i = 0; i < power; i++)
@@ -266,6 +334,101 @@ namespace SilikatLabConsole.Data
                     db.BlockQualityResearches.AddRange(researches);
                     db.SaveChanges();
                 }
+
+                if (!db.SludgeResearches.Any())
+                {
+                    var researches = new List<SludgeResearch>();
+                    var tasks = db.WorkTasks.Where(t => t.TypeResearch.TypeResult == TypeResearch.IsTypeResult.SludgeResearch).ToArray();
+                    var labolatorians = db.Laboratorians.ToArray();
+                    var workshifts = db.WorkShifts.ToArray();
+                    for (int i = 0; i < power; i++)
+                    {
+                        var task = tasks[rnd.Next(tasks.Length)];
+                        researches.Add(new SludgeResearch()
+                        {
+                            DateTime = task.TaskDateTime.AddMinutes(rnd.Next(5, 60)),
+                            Name = $"Результат исследования шлама № {i}",
+                            Value = rnd.NextDouble() * 100.0,
+                            Text = $"Результат № {i} удовлетворителен.",
+                            Description = $"Описание результата исследования шлама № {i}",
+                            WorkTask = task,
+                            Laboratorian = labolatorians[rnd.Next(labolatorians.Length)],
+                            WorkShift = workshifts[rnd.Next(workshifts.Length)],
+                            Density = rnd.Next(1500, 1600),
+                            Surface = rnd.Next(2500, 3000),
+                            Sieve0_8 = (float)rnd.NextDouble() + 30.0f,
+                            Sieve0_09 = (float)rnd.NextDouble() + 30.0f,
+                            Sieve0_045 = (float)rnd.NextDouble() + 30.0f,
+                            Gypsum = (float)rnd.NextDouble() + 300.0f,
+                            Humidity = (float)rnd.NextDouble() + 30.0f,
+                        });
+                    }
+                    db.SludgeResearches.AddRange(researches);
+                    db.SaveChanges();
+                }
+
+                if (!db.CementResearches.Any())
+                {
+                    var researches = new List<CementResearch>();
+                    var tasks = db.WorkTasks.Where(t => t.TypeResearch.TypeResult == TypeResearch.IsTypeResult.CementReseatch).ToArray();
+                    var labolatorians = db.Laboratorians.ToArray();
+                    var workshifts = db.WorkShifts.ToArray();
+                    for (int i = 0; i < power; i++)
+                    {
+                        var task = tasks[rnd.Next(tasks.Length)];
+                        researches.Add(new CementResearch()
+                        {
+                            DateTime = task.TaskDateTime.AddMinutes(rnd.Next(5, 60)),
+                            Name = $"Результат исследования цемента № {i}",
+                            Value = rnd.NextDouble() * 100.0,
+                            Text = $"Результат № {i} удовлетворителен.",
+                            Description = $"Описание результата исследования цемента № {i}",
+                            WorkTask = task,
+                            Laboratorian = labolatorians[rnd.Next(labolatorians.Length)],
+                            WorkShift = workshifts[rnd.Next(workshifts.Length)],
+                            Party = rnd.Next(1000,9000).ToString(),
+                            PassportVc = (float)rnd.NextDouble() + 30.0f,
+                            PassportNsh = (float)rnd.NextDouble() + 180.0f,
+                            PassportKsh = (float)rnd.NextDouble() + 250.0f,
+                            ActualVc = (float)rnd.NextDouble() + 30.0f,
+                            ActualNsh = (float)rnd.NextDouble() + 180.0f,
+                            ActualKsh = (float)rnd.NextDouble() + 250.0f,
+                            FromName = $"г.Вольск ЦЕМ 1 {(rnd.NextDouble() * 50.0f):F1} Н",
+                        });
+                    }
+                    db.CementResearches.AddRange(researches);
+                    db.SaveChanges();
+                }
+
+                if (!db.HammerBinderResearches.Any())
+                {
+                    var researches = new List<HammerBinderResearch>();
+                    var tasks = db.WorkTasks.Where(t => t.TypeResearch.TypeResult == TypeResearch.IsTypeResult.HammerBinderResearch).ToArray();
+                    var labolatorians = db.Laboratorians.ToArray();
+                    var workshifts = db.WorkShifts.ToArray();
+                    for (int i = 0; i < power; i++)
+                    {
+                        var task = tasks[rnd.Next(tasks.Length)];
+                        researches.Add(new HammerBinderResearch()
+                        {
+                            DateTime = task.TaskDateTime.AddMinutes(rnd.Next(5, 60)),
+                            Name = $"Результат исследования молото-вяжущего № {i}",
+                            Value = rnd.NextDouble() * 100.0,
+                            Text = $"Результат № {i} удовлетворителен.",
+                            Description = $"Описание результата исследования молото-вяжущего № {i}",
+                            WorkTask = task,
+                            Laboratorian = labolatorians[rnd.Next(labolatorians.Length)],
+                            WorkShift = workshifts[rnd.Next(workshifts.Length)],
+                            Sieve0_2 = (float)rnd.NextDouble() + 30.0f,
+                            Surface = (float)rnd.NextDouble() * 10.0f + 10.0f,
+                            Perfomance = (float)rnd.NextDouble() * 10.0f + 10.0f,
+                            Activity = (float)rnd.NextDouble() * 10.0f + 50.0f,
+                        });
+                    }
+                    db.HammerBinderResearches.AddRange(researches);
+                    db.SaveChanges();
+                }
+
 
             }
         }

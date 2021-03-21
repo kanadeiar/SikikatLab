@@ -18,10 +18,11 @@ namespace SilikatLabConsole
 
             using (var db = new SPLaboratoryDb()) db.Database.Migrate();
 
-            using (var db = new SPLaboratoryDb())
-            {
-                SPLaboratoryDb.AddTestDataToDB(db);
-            }
+            //using (var db = new SPLaboratoryDb())
+            //{
+            //    SPLaboratoryDb.RemoveDataFromDb(db);
+            //    SPLaboratoryDb.AddTestDataToDB(db);
+            //}
 
             //using (var db = new SPLaboratoryDb())
             //{
@@ -52,11 +53,11 @@ namespace SilikatLabConsole
                 {
                     var label = obj switch
                     {
-                        BlockQualityResearch r => $"{r.DateTime}\t {r.Name}, зн: {r.Value} т: {r.Text} - {((r.Normal) ? "Отлично" : "Плохо")} л-т: {r.Laboratorian.SurName} задание: {r.WorkTask.Name} смена: {r.WorkShift.Name} прочность: Марка: {r.Trademark} Формат: {r.Format} Масса: {r.Weight} Размеры: {r.SizeX} {r.SizeY} {r.SizeZ}",
-                        SludgeResearch r => $"{r.DateTime}\t {r.Name}, зн: {r.Value} т: {r.Text} - {((r.Normal) ? "Отлично" : "Плохо")} л-т: {r.Laboratorian.SurName} задание: {r.WorkTask.Name} смена: {r.WorkShift.Name} шлам: плотность: {r.Density} сито: {r.Sieve0_8}",
-                        CementResearch r => $"{r.DateTime}\t {r.Name}, зн: {r.Value} т: {r.Text} - {((r.Normal) ? "Отлично" : "Плохо")} л-т: {r.Laboratorian.SurName} задание: {r.WorkTask.Name} смена: {r.WorkShift.Name} цемент: Паспортное в/ц: {r.PassportVc} фактическое в/ц: {r.ActualVc} откуда: {r.FromName}",
-                        HammerBinderResearch r => $"{r.DateTime}\t {r.Name}, зн: {r.Value} т: {r.Text} - {((r.Normal) ? "Отлично" : "Плохо")} л-т: {r.Laboratorian.SurName} задание: {r.WorkTask.Name} смена: {r.WorkShift.Name} молото-вяжущее: поверхность: {r.Surface} активность: {r.Activity}",
-                        { } r => $"{r.DateTime}\t {r.Name}, зн: {r.Value} т: {r.Text} - {((r.Normal) ? "Отлично" : "Плохо")} л-т: {r.Laboratorian.SurName} задание: {r.WorkTask.Name} смена: {r.WorkShift.Name}",
+                        BlockQualityResearch r => $"{r.DateTime}\t {r.Name}, зн: {r.Value} т: {r.Text} - {((r.Normal) ? "Отлично" : "Плохо")} л-т: {r.Laboratorian.SurName} задание: {r.WorkTask?.Name ?? "отсутствует"} {((r.WorkTask?.Completed ?? false) ? "Выполнено" : "Не выполнено")} смена: {r.WorkShift.Name} прочность: Марка: {r.Trademark} Формат: {r.Format} Масса: {r.Weight} Размеры: {r.SizeX} {r.SizeY} {r.SizeZ} Плотность: {r.BeforeDensity} Коэффициент: {r.Coefficient} Масса сырая: {r.BeforeWeight} Масса сушеная: {r.AfterWeight} Влажность: {r.Humidity} Нагрузка: {r.Load} Прочность: {r.Strength}",
+                        SludgeResearch r => $"{r.DateTime}\t {r.Name}, зн: {r.Value} т: {r.Text} - {((r.Normal) ? "Отлично" : "Плохо")} л-т: {r.Laboratorian.SurName} задание: {r.WorkTask?.Name ?? "отсутствует"} {((r.WorkTask?.Completed ?? false) ? "Выполнено" : "Не выполнено")} смена: {r.WorkShift.Name} шлам: плотность: {r.Density} сито: {r.Sieve0_8}",
+                        CementResearch r => $"{r.DateTime}\t {r.Name}, зн: {r.Value} т: {r.Text} - {((r.Normal) ? "Отлично" : "Плохо")} л-т: {r.Laboratorian.SurName} задание: {r.WorkTask?.Name ?? "отсутствует"} {((r.WorkTask?.Completed ?? false) ? "Выполнено" : "Не выполнено")} смена: {r.WorkShift.Name} цемент: Паспортное в/ц: {r.PassportVc} фактическое в/ц: {r.ActualVc} откуда: {r.FromName}",
+                        HammerBinderResearch r => $"{r.DateTime}\t {r.Name}, зн: {r.Value} т: {r.Text} - {((r.Normal) ? "Отлично" : "Плохо")} л-т: {r.Laboratorian.SurName} задание: {r.WorkTask?.Name ?? "отсутствует"} {((r.WorkTask?.Completed ?? false) ? "Выполнено" : "Не выполнено")} смена: {r.WorkShift.Name} молото-вяжущее: поверхность: {r.Surface} активность: {r.Activity}",
+                        { } r => $"{r.DateTime}\t {r.Name}, зн: {r.Value} т: {r.Text} - {((r.Normal) ? "Отлично" : "Плохо")} л-т: {r.Laboratorian.SurName} задание: {r.WorkTask?.Name ?? "отсутствует"} {((r.WorkTask?.Completed ?? false) ? "Выполнено" : "Не выполнено")} смена: {r.WorkShift.Name}",
                         _ => "Неизвестный",
                     };
                     Console.WriteLine(label);

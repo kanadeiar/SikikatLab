@@ -48,6 +48,15 @@ namespace SilikatLab.lib.Models
             set => Set(ref _AgainInMinutes, value);
         }
 
+        private bool _Completed;
+
+        /// <summary> Выполнено задание </summary>
+        public bool Completed
+        {
+            get => _Completed;
+            set => Set(ref _Completed, value);
+        }
+
         /// <summary> Вид исследования </summary>
         public virtual TypeResearch TypeResearch { get; set; }
 

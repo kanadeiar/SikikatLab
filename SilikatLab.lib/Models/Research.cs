@@ -67,8 +67,10 @@ namespace SilikatLab.lib.Models
         }
 
         /// <summary> Задание </summary>
-        [Required]
         public virtual WorkTask WorkTask { get; set; }
+
+        /// <summary> Вид исследования </summary>
+        public virtual TypeResearch TypeResearch { get; set; }
 
         /// <summary> Объект исследования - возможное уточнение </summary>
         public virtual ResearchObject ResearchObject { get; set; }

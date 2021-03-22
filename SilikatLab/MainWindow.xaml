@@ -1,0 +1,29 @@
+﻿<Window x:Class="SilikatLab.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SilikatLab"
+        mc:Ignorable="d"
+        DataContext="{Binding MainWindowViewModel, Source={StaticResource Locator}}"
+        Title="{Binding Title}" 
+        Height="700" Width="1000" WindowStartupLocation="CenterScreen" Background="LightCyan" ResizeMode="CanResizeWithGrip">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Меню">
+                <MenuItem Header="Выход" 
+                          Command="{Binding CloseApplicationCommand}"/>
+            </MenuItem>
+            <MenuItem Header="Справка">
+                <MenuItem Header="О программе ..." 
+                          Command="{Binding ShowDialogCommand}"
+                          CommandParameter="Незавершенная версия приложения"/>
+            </MenuItem>
+        </Menu>
+        <Grid>
+
+        </Grid>
+
+
+    </DockPanel>
+</Window>

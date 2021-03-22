@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SilikatLabWpf", "SilikatLab
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B96730E2-AB49-42D5-B9FE-076788C4ED96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SilikatLabConsole", "Tests\SilikatLabConsole\SilikatLabConsole.csproj", "{41AF25CC-C7D1-4B89-AB39-0F3F55847FAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SilikatLabConsole", "Tests\SilikatLabConsole\SilikatLabConsole.csproj", "{41AF25CC-C7D1-4B89-AB39-0F3F55847FAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SilikatLab.lib", "SilikatLab.lib\SilikatLab.lib.csproj", "{359C36CF-911F-4611-BBB2-383FD0330C50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SilikatLab.lib", "SilikatLab.lib\SilikatLab.lib.csproj", "{359C36CF-911F-4611-BBB2-383FD0330C50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SilikatLab", "SilikatLab\SilikatLab.csproj", "{8A267E34-B678-473B-A49C-16E6B2B4ECDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{359C36CF-911F-4611-BBB2-383FD0330C50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{359C36CF-911F-4611-BBB2-383FD0330C50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{359C36CF-911F-4611-BBB2-383FD0330C50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A267E34-B678-473B-A49C-16E6B2B4ECDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A267E34-B678-473B-A49C-16E6B2B4ECDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A267E34-B678-473B-A49C-16E6B2B4ECDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A267E34-B678-473B-A49C-16E6B2B4ECDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

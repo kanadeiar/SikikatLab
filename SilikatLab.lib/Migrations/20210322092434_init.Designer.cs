@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SilikatLabConsole.Data;
+using SilikatLab.lib.Data.Base;
 
-namespace SilikatLabConsole.Migrations
+namespace SilikatLab.lib.Migrations
 {
     [DbContext(typeof(SPLaboratoryDb))]
-    [Migration("20210319094400_add_sludge_researches")]
-    partial class add_sludge_researches
+    [Migration("20210322092434_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -75,6 +75,9 @@ namespace SilikatLabConsole.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<bool>("Normal")
+                        .HasColumnType("bit");
+
                     b.Property<int?>("ResearchObjectId")
                         .HasColumnType("int");
 
@@ -87,13 +90,16 @@ namespace SilikatLabConsole.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
+                    b.Property<int?>("TypeResearchId")
+                        .HasColumnType("int");
+
                     b.Property<double>("Value")
                         .HasColumnType("float");
 
                     b.Property<int>("WorkShiftId")
                         .HasColumnType("int");
 
-                    b.Property<int>("WorkTaskId")
+                    b.Property<int?>("WorkTaskId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -101,6 +107,8 @@ namespace SilikatLabConsole.Migrations
                     b.HasIndex("LaboratorianId");
 
                     b.HasIndex("ResearchObjectId");
+
+                    b.HasIndex("TypeResearchId");
 
                     b.HasIndex("WorkShiftId");
 
@@ -221,6 +229,9 @@ namespace SilikatLabConsole.Migrations
                     b.Property<int>("AgainInMinutes")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Completed")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
@@ -305,6 +316,59 @@ namespace SilikatLabConsole.Migrations
                     b.ToTable("BlockQualityReearches");
                 });
 
+            modelBuilder.Entity("SilikatLab.lib.Models.Researches.CementResearch", b =>
+                {
+                    b.HasBaseType("SilikatLab.lib.Models.Research");
+
+                    b.Property<float>("ActualKsh")
+                        .HasColumnType("real");
+
+                    b.Property<float>("ActualNsh")
+                        .HasColumnType("real");
+
+                    b.Property<float>("ActualVc")
+                        .HasColumnType("real");
+
+                    b.Property<string>("FromName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Party")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("PassportKsh")
+                        .HasColumnType("real");
+
+                    b.Property<float>("PassportNsh")
+                        .HasColumnType("real");
+
+                    b.Property<float>("PassportVc")
+                        .HasColumnType("real");
+
+                    b.ToTable("CementResearch");
+                });
+
+            modelBuilder.Entity("SilikatLab.lib.Models.Researches.HammerBinderResearch", b =>
+                {
+                    b.HasBaseType("SilikatLab.lib.Models.Research");
+
+                    b.Property<float>("Activity")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Perfomance")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Sieve0_2")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Surface")
+                        .HasColumnType("real");
+
+                    b.ToTable("HammerBinderResearch");
+                });
+
             modelBuilder.Entity("SilikatLab.lib.Models.Researches.SludgeResearch", b =>
                 {
                     b.HasBaseType("SilikatLab.lib.Models.Research");
@@ -345,6 +409,10 @@ namespace SilikatLabConsole.Migrations
                         .WithMany("Researches")
                         .HasForeignKey("ResearchObjectId");
 
+                    b.HasOne("SilikatLab.lib.Models.TypeResearch", "TypeResearch")
+                        .WithMany()
+                        .HasForeignKey("TypeResearchId");
+
                     b.HasOne("SilikatLab.lib.Models.WorkShift", "WorkShift")
                         .WithMany("Researches")
                         .HasForeignKey("WorkShiftId")
@@ -353,13 +421,13 @@ namespace SilikatLabConsole.Migrations
 
                     b.HasOne("SilikatLab.lib.Models.WorkTask", "WorkTask")
                         .WithMany("ResearchResults")
-                        .HasForeignKey("WorkTaskId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WorkTaskId");
 
                     b.Navigation("Laboratorian");
 
                     b.Navigation("ResearchObject");
+
+                    b.Navigation("TypeResearch");
 
                     b.Navigation("WorkShift");
 
@@ -395,6 +463,24 @@ namespace SilikatLabConsole.Migrations
                     b.HasOne("SilikatLab.lib.Models.Research", null)
                         .WithOne()
                         .HasForeignKey("SilikatLab.lib.Models.Researches.BlockQualityResearch", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SilikatLab.lib.Models.Researches.CementResearch", b =>
+                {
+                    b.HasOne("SilikatLab.lib.Models.Research", null)
+                        .WithOne()
+                        .HasForeignKey("SilikatLab.lib.Models.Researches.CementResearch", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SilikatLab.lib.Models.Researches.HammerBinderResearch", b =>
+                {
+                    b.HasOne("SilikatLab.lib.Models.Research", null)
+                        .WithOne()
+                        .HasForeignKey("SilikatLab.lib.Models.Researches.HammerBinderResearch", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });

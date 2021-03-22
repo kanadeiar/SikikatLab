@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SilikatLabConsole.Data;
+using SilikatLab.lib.Data.Base;
 
-namespace SilikatLabConsole.Migrations
+namespace SilikatLab.lib.Migrations
 {
     [DbContext(typeof(SPLaboratoryDb))]
-    [Migration("20210319101229_add_hammerbinder_researches")]
-    partial class add_hammerbinder_researches
+    partial class SPLaboratoryDbModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,13 +88,16 @@ namespace SilikatLabConsole.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
+                    b.Property<int?>("TypeResearchId")
+                        .HasColumnType("int");
+
                     b.Property<double>("Value")
                         .HasColumnType("float");
 
                     b.Property<int>("WorkShiftId")
                         .HasColumnType("int");
 
-                    b.Property<int>("WorkTaskId")
+                    b.Property<int?>("WorkTaskId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -104,6 +105,8 @@ namespace SilikatLabConsole.Migrations
                     b.HasIndex("LaboratorianId");
 
                     b.HasIndex("ResearchObjectId");
+
+                    b.HasIndex("TypeResearchId");
 
                     b.HasIndex("WorkShiftId");
 
@@ -223,6 +226,9 @@ namespace SilikatLabConsole.Migrations
 
                     b.Property<int>("AgainInMinutes")
                         .HasColumnType("int");
+
+                    b.Property<bool>("Completed")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
@@ -401,6 +407,10 @@ namespace SilikatLabConsole.Migrations
                         .WithMany("Researches")
                         .HasForeignKey("ResearchObjectId");
 
+                    b.HasOne("SilikatLab.lib.Models.TypeResearch", "TypeResearch")
+                        .WithMany()
+                        .HasForeignKey("TypeResearchId");
+
                     b.HasOne("SilikatLab.lib.Models.WorkShift", "WorkShift")
                         .WithMany("Researches")
                         .HasForeignKey("WorkShiftId")
@@ -409,13 +419,13 @@ namespace SilikatLabConsole.Migrations
 
                     b.HasOne("SilikatLab.lib.Models.WorkTask", "WorkTask")
                         .WithMany("ResearchResults")
-                        .HasForeignKey("WorkTaskId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WorkTaskId");
 
                     b.Navigation("Laboratorian");
 
                     b.Navigation("ResearchObject");
+
+                    b.Navigation("TypeResearch");
 
                     b.Navigation("WorkShift");
 

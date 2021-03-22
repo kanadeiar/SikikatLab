@@ -72,7 +72,7 @@ namespace SilikatLab.lib.Models
         /// <summary> Вид исследования </summary>
         public virtual TypeResearch TypeResearch { get; set; }
 
-        /// <summary> Объект исследования - возможное уточнение </summary>
+        /// <summary> Объект исследования </summary>
         public virtual ResearchObject ResearchObject { get; set; }
 
         /// <summary> Лаборант </summary>

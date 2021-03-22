@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Design;
 
-namespace SilikatLabConsole.Data
+namespace SilikatLab.lib.Data.Base
 {
     class DesignTimeSPLaboratoryDbContextFactory : IDesignTimeDbContextFactory<SPLaboratoryDb>
     {

@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
-using SilikatLab.lib.Models;
+using SilikatLab.lib.Data.Base;
 using SilikatLab.lib.Models.Researches;
-using SilikatLabConsole.Data;
+
 
 namespace SilikatLabConsole
 {
@@ -14,30 +13,36 @@ namespace SilikatLabConsole
         static void Main(string[] args)
         {
             ConsoleToRussian();
-            Random rnd = new Random();
+            //Random rnd = new Random();
 
-            using (var db = new SPLaboratoryDb()) db.Database.Migrate();
+            using (var db = new SPLaboratoryDb())
+            {
+                db.Database.Migrate();
+            }
 
-            //using (var db = new SPLaboratoryDb())
-            //{
-            //    SPLaboratoryDb.RemoveDataFromDb(db);
-            //    SPLaboratoryDb.AddTestDataToDB(db);
-            //}
+            //using (var db = new SPLaboratoryDb()) db.Database.Migrate();
 
-            //using (var db = new SPLaboratoryDb())
-            //{
-            //    var tasks = db.WorkTasks
-            //        .Include(t => t.TypeResearch)
-            //        .Include(t => t.ResearchObject)
-            //        .Include(t => t.ResearchResults);
-            //    var str = tasks.ToQueryString();
-            //    Console.WriteLine("Задания:");
-            //    foreach (var t in tasks)
-            //    {
-            //        Console.WriteLine($"Дата: {t.DateTime:f} Вып-е: {t.TaskDateTime:f} Наз-е: {t.Name} Исс-е: {t.TypeResearch.Name} К-во: {t.ResearchResults.Count()}");
-            //    }
-            //    Console.WriteLine($"Запрос:\n{str}");
-            //}
+            using (var db = new SPLaboratoryDb())
+            {
+
+                SPLaboratoryDb.AddTestData(db);
+            }
+
+            using (var db = new SPLaboratoryDb())
+            {
+                var tasks = db.WorkTasks
+                    .Include(t => t.TypeResearch)
+                    .Include(t => t.ResearchObject)
+                    .Include(t => t.ResearchResults);
+                //var str = tasks.ToQueryString();
+                Console.WriteLine("Задания:");
+                foreach (var t in tasks)
+                {
+                    Console.WriteLine($"Дата: {t.DateTime:f} Вып-е: {t.TaskDateTime:f} Наз-е: {t.Name} Исс-е: {t.TypeResearch.Name} К-во: {t.ResearchResults.Count()}");
+                }
+                //Console.WriteLine($"Запрос:\n{str}");
+            }
+
 
 
             using (var db = new SPLaboratoryDb())

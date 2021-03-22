@@ -129,40 +129,7 @@ namespace SilikatLabWpf
             //DataGridResults.ItemsSource = testResults;
         }
 
-        private static async Task InitDbAsync(LaboratorianDb db)
-        {
-            //await db.Database.EnsureDeletedAsync();
-            if (await db.Database.EnsureCreatedAsync())
-                MessageBox.Show("База данных создана заново и заполнена тестовыми данными!");
 
-            if (await db.Laboratorians.AnyAsync() == false)
-            {
-                var laboratorians = Enumerable.Range(1, 2).Select(l => new Laboratorian
-                {
-                    SurName = $"Иванов{l}",
-                    Name = $"Иван{l}",
-                    Patronymic = $"Иванович{l}",
-                }).ToArray();
-                await db.Laboratorians.AddRangeAsync(laboratorians);
-                await db.SaveChangesAsync();
-            }
-            if (await db.TestResults.AnyAsync() == false)
-            {
-                var testResults = Enumerable.Range(1, 2).Select(r => new TestResult
-                {
-                    DateTime = DateTime.Now.AddMinutes(- rnd.Next(920)),
-                    ResearchName = $"Исследование № {r}",
-                    ObjectName = $"Массив № {r}",
-                    WorkShiftName = $"Смена № {r}",
-                    Name = $"Плотность",
-                    Value = rnd.NextDouble() * 100.0,
-                    Result = $"Результаты исследования - 0",
-                    Description = $"Описание {r}",
-                }).ToArray();
-                await db.TestResults.AddRangeAsync(testResults);
-                await db.SaveChangesAsync();
-            }
-        }
 
 
         private async void Update_Click(object sender, RoutedEventArgs e)

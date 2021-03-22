@@ -2,6 +2,7 @@
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using SilikatLab.Interfaces;
+using SilikatLab.lib.Data.Base;
 using SilikatLab.Services;
 using SilikatLab.ViewModels;
 
@@ -21,6 +22,8 @@ namespace SilikatLab
         /// <summary> Инит сервисов </summary>
         private static void InitializeServices(IServiceCollection Services)
         {
+            Services.AddDbContext<SPLaboratoryDb>();
+
             Services.AddTransient<IDialogService, WindowDialogService>();
 
             Services.AddScoped<MainWindowViewModel>();

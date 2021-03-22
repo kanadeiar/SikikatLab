@@ -9,6 +9,12 @@ namespace SilikatLab.ViewModels
 {
     class MainWindowViewModel : ViewModel
     {
+        #region Данные
+
+        
+
+        #endregion
+
         #region Свойства
 
         private string _Title = "Лабораторная программа";

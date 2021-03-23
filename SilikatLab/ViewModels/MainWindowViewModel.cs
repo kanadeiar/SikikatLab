@@ -47,8 +47,9 @@ namespace SilikatLab.ViewModels
 
         public MainWindowViewModel(IRepository<Laboratorian> Laboratorians)
         {
-            UpdateDatabase();
+            //UpdateDatabase();
             _Laboratorians = Laboratorians;
+            LoadData();
         }
 
 

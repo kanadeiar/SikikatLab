@@ -9,11 +9,11 @@
         DataContext="{Binding MainWindowViewModel, Source={StaticResource Locator}}"
         Title="{Binding Title}" 
         Height="700" Width="1000" WindowStartupLocation="CenterScreen" Background="LightCyan" ResizeMode="CanResizeWithGrip">
-    <i:Interaction.Triggers>
+    <!--<i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadDataCommand}"/>
         </i:EventTrigger>
-    </i:Interaction.Triggers>
+    </i:Interaction.Triggers>-->
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Меню">
@@ -33,7 +33,80 @@
         </StatusBar>
         <TabControl DockPanel.Dock="Top">
             <TabItem Header="Задания лаборанту">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Grid.Row="0" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="AntiqueWhite"
+                              Name="DataGridWorkTasks" SelectionMode="Single"
+                              ItemsSource="{Binding WorkTasks}"
+                              SelectedItem="{Binding SelectedWorkTaskMain}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Задание" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Выполнить" Binding="{Binding TaskDateTime, StringFormat=d.MM.yyyy HH:mm}"/>
+                            <DataGridTextColumn Header="Выполнение" Binding="{Binding CompletedString}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid Grid.Column="1" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Дата задания:" VerticalAlignment="Center"/>
+                            <TextBox Grid.Column="1" IsReadOnly="True" Text="{Binding SelectedWorkTaskMain.DateTime, StringFormat=dd.MM.yyyy HH:mm}" Margin="3"/>
+                            <TextBlock Grid.Row="1" Text="Дата выполнения задания:" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" IsReadOnly="True" Text="{Binding SelectedWorkTaskMain.TaskDateTime, StringFormat=dd.MM.yyyy HH:mm}" Margin="3"/>
+                            <TextBlock Grid.Row="2" Text="Название:" VerticalAlignment="Center"/>
+                            <TextBox Grid.Column="1" Grid.Row="2" IsReadOnly="True" Text="{Binding SelectedWorkTaskMain.Name}" Margin="3"/>
+                            <TextBlock Grid.Row="3" Text="Повтор задания:" VerticalAlignment="Center"/>
+                            <TextBox Grid.Column="1" Grid.Row="3" IsReadOnly="True" Text="{Binding SelectedWorkTaskMain.AgainText, Mode=OneWay}" Margin="3"/>
+                            <TextBlock Grid.Row="4" Text="Выполнено задание:" VerticalAlignment="Center"/>
+                            <CheckBox Grid.Column="1" Grid.Row="4" IsEnabled="False" IsChecked="{Binding SelectedWorkTaskMain.Completed}" Margin="3"/>
+                            <TextBlock Grid.Row="5" Text="Вид исследования:" VerticalAlignment="Center"/>
+                            <TextBox Grid.Column="1" Grid.Row="5" IsReadOnly="True" Text="{Binding SelectedWorkTaskMain.TypeResearch.Name}" Margin="3"/>
+                            <TextBlock Grid.Row="6" Text="Объект исследования:" VerticalAlignment="Center"/>
+                            <TextBox Grid.Column="1" Grid.Row="6" IsReadOnly="True" Text="{Binding SelectedWorkTaskMain.ResearchObject.Name}" Margin="3"/>
+                        </Grid>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                            <Button Content="Ввести новый результат исследования" Margin="5" Padding="10" Background="LimeGreen"/>
+                        </StackPanel>
+                        <TextBlock Grid.Row="2" Text="Исследования по этому заданию:" HorizontalAlignment="Center"/>
+                        <DataGrid Grid.Row="3" IsReadOnly="True" AutoGenerateColumns="False" AlternatingRowBackground="AntiqueWhite"
+                                  ItemsSource="{Binding DayResearchesOfSelectedWorkTaskMain}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Дата" Binding="{Binding DateTime, StringFormat=d.MM.yyyy HH:mm}"/>
+                                <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
+                                <DataGridTextColumn Header="Значение" Binding="{Binding Value, StringFormat=f2}"/>
+                                <DataGridTextColumn Header="Текст" Binding="{Binding Text}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
 
+
+
+                    </Grid>
+
+                    
+
+
+                </Grid>
             </TabItem>
             <TabItem Header="Результаты">
 

@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -52,6 +54,21 @@ namespace SilikatLab.ViewModels
 
         #endregion
 
+        private WorkTask _SelectedWorkTaskMain;
+
+        /// <summary> Выбранное задание в главном окне на первой вкладке </summary>
+        public WorkTask SelectedWorkTaskMain
+        {
+            get => _SelectedWorkTaskMain;
+            set
+            {
+                Set(ref _SelectedWorkTaskMain, value);
+                OnPropertyChanged(nameof(DayResearchesOfSelectedWorkTaskMain));
+            }
+        }
+
+        public IEnumerable<Research> DayResearchesOfSelectedWorkTaskMain =>
+            Researches.Where(r => r.WorkTask == SelectedWorkTaskMain && r.DateTime >= DateTime.Today);
 
 
         #region Вспомогательные
@@ -85,7 +102,7 @@ namespace SilikatLab.ViewModels
             _WorkShifts = WorkShifts;
             _WorkTasks = WorkTasks;
             _Researches = Researches;
-            //LoadData();
+            LoadData();
         }
 
 
@@ -116,7 +133,7 @@ namespace SilikatLab.ViewModels
                 collection.Add(item);
         }
 
-        /// <summary> Обновление базы данных </summary>
+        /// <summary> Обновление через миграции базы данных </summary>
         private static void UpdateDatabase()
         {
             using (var db = new SPLaboratoryEntities())

@@ -7,7 +7,7 @@ namespace SilikatLab.lib.Data.Repositories
 {
     public class ResearchRepository : BaseRepository<Research>
     {
-        public new IEnumerable<Research> GetAll() => Context.Researches.OrderByDescending(r => r.DateTime);
+        public new IEnumerable<Research> GetAll() => Context.Researches.OrderBy(r => r.DateTime);
         public ResearchRepository(SPLaboratoryEntities laboratoryEntities) : base(laboratoryEntities)
         {
         }

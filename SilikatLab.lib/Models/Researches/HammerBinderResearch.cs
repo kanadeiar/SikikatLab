@@ -5,7 +5,7 @@ namespace SilikatLab.lib.Models.Researches
 {
     /// <summary> Молото-вяжущее исследование </summary>
     [Table("HammerBinderResearch")]
-    public class HammerBinderResearch : Research
+    public partial class HammerBinderResearch : Research
     {
         private float _Sieve0_2;
 

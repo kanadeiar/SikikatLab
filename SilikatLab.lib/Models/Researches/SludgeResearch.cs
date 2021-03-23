@@ -5,7 +5,7 @@ namespace SilikatLab.lib.Models.Researches
 {
     /// <summary> Результат исследования по шламу </summary>
     [Table("SludgeResearch")]
-    public class SludgeResearch : Research
+    public partial class SludgeResearch : Research
     {
         private float _Density;
 

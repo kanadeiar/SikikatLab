@@ -5,7 +5,7 @@ namespace SilikatLab.lib.Models.Researches
 {
     /// <summary> Результат исследования по качеству блоков </summary>
     [Table("BlockQualityReearches")]
-    public class BlockQualityResearch : Research
+    public partial class BlockQualityResearch : Research
     {
         private string _Format;
 

@@ -32,13 +32,22 @@
             </StatusBarItem>
         </StatusBar>
         <TabControl DockPanel.Dock="Top">
+            <TabItem Header="Задания лаборанту">
+
+            </TabItem>
+            <TabItem Header="Результаты">
+
+            </TabItem>
+            <TabItem Header="Архивные данные">
+
+            </TabItem>
             <TabItem Header="База данных">
                 <TabControl>
                     <TabItem Header="Задания лаборанту">
                         <DataGrid ItemsSource="{Binding WorkTasks}" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="Beige">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Дата задания" Binding="{Binding DateTime, StringFormat=d.MM.yyy hh:mm}"/>
-                                <DataGridTextColumn Header="Выполнить" Binding="{Binding TaskDateTime, StringFormat=d.MM.yyy hh:mm}"/>
+                                <DataGridTextColumn Header="Дата задания" Binding="{Binding DateTime, StringFormat=d.MM.yyyy HH:mm}"/>
+                                <DataGridTextColumn Header="Выполнить" Binding="{Binding TaskDateTime, StringFormat=d.MM.yyyy HH:mm}"/>
                                 <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
                                 <DataGridCheckBoxColumn Binding="{Binding Completed}" Width="30"/>
                                 <DataGridTextColumn Header="Выполнение" Binding="{Binding CompletedString}"/>
@@ -51,7 +60,7 @@
                     <TabItem Header="Результаты">
                         <DataGrid ItemsSource="{Binding Researches}" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="AntiqueWhite">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Дата" Binding="{Binding DateTime, StringFormat=d.MM.yyy hh:mm}"/>
+                                <DataGridTextColumn Header="Дата" Binding="{Binding DateTime, StringFormat=d.MM.yyyy HH:mm}"/>
                                 <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>    
                                 <DataGridTextColumn Header="Значение" Binding="{Binding Value, StringFormat=f2}"/>
                                 <DataGridTextColumn Header="Текст" Binding="{Binding Text}"/>
@@ -105,8 +114,6 @@
                             </DataGrid.Columns>
                         </DataGrid>
                     </TabItem>
-
-
                 </TabControl>
             </TabItem>
         </TabControl>

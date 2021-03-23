@@ -5,7 +5,7 @@ namespace SilikatLab.lib.Models.Researches
 {
     /// <summary> Результат исследования по цементу </summary>
     [Table("CementResearch")]
-    public class CementResearch : Research
+    public partial class CementResearch : Research
     {
         private string _Party;
 

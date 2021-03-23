@@ -1,8 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SilikatLab.Commands;
+using SilikatLab.lib.Data.Base;
 using SilikatLab.lib.Interfaces;
 using SilikatLab.lib.Models;
 using SilikatLab.lib.Models.Base;
@@ -45,14 +47,14 @@ namespace SilikatLab.ViewModels
 
         public MainWindowViewModel(IRepository<Laboratorian> Laboratorians)
         {
+            UpdateDatabase();
             _Laboratorians = Laboratorians;
         }
 
+
+
         #region Команды
-
-
-
-
+        
         #region Данные
 
         private ICommand _LoadDataCommand;
@@ -68,11 +70,13 @@ namespace SilikatLab.ViewModels
             LoadData();
         }
 
+        /// <summary> Загрузка из хранилища в коллекции </summary>
         private void LoadData()
         {
             Load(Laboratorians, _Laboratorians);
         }
 
+        /// <summary> Загрузка из хранилища в коллекцию </summary>
         private static void Load<T>(ObservableCollection<T> collection, IRepository<T> repository) where T : Entity
         {
             collection.Clear();
@@ -80,7 +84,18 @@ namespace SilikatLab.ViewModels
                 collection.Add(item);
         }
 
+        /// <summary> Обновление базы данных </summary>
+        private static void UpdateDatabase()
+        {
+            using (var db = new SPLaboratoryEntities())
+            {
+                db.Database.Migrate();
+            }
+        }
+
         #endregion
+
+
 
         #region Вспомогательные
 

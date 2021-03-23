@@ -16,8 +16,6 @@ namespace SilikatLab.lib.Models
             set => Set(ref _Name, value);
         }
 
-        /// <summary> Задания </summary>
-        public virtual IEnumerable<WorkTask> WorkTasks { get; set; } = new List<WorkTask>();
 
         private IsTypeResult _isTypeResult;
 
@@ -27,6 +25,12 @@ namespace SilikatLab.lib.Models
             get => _isTypeResult;
             set => Set(ref _isTypeResult, value);
         }
+
+        /// <summary> Задания </summary>
+        public virtual IEnumerable<WorkTask> WorkTasks { get; set; } = new List<WorkTask>();
+
+        /// <summary> Исследования с уточнениями </summary>
+        public virtual IEnumerable<Research> Researches { get; set; } = new List<Research>();
 
         public enum IsTypeResult
         {

@@ -1,8 +1,11 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using Microsoft.Extensions.DependencyInjection;
 using SilikatLab.Commands;
-using SilikatLab.Interfaces;
+using SilikatLab.lib.Interfaces;
+using SilikatLab.lib.Models;
+using SilikatLab.lib.Models.Base;
 using SilikatLab.ViewModels.Base;
 
 namespace SilikatLab.ViewModels
@@ -11,11 +14,21 @@ namespace SilikatLab.ViewModels
     {
         #region Данные
 
-        
+        private readonly IRepository<Laboratorian> _Laboratorians;
 
         #endregion
 
         #region Свойства
+
+        #region Коллекции
+
+        public ObservableCollection<Laboratorian> Laboratorians { get; } = new();
+
+        #endregion
+
+
+
+        #region Вспомогательные
 
         private string _Title = "Лабораторная программа";
 
@@ -28,12 +41,48 @@ namespace SilikatLab.ViewModels
 
         #endregion
 
-        public MainWindowViewModel()
+        #endregion
+
+        public MainWindowViewModel(IRepository<Laboratorian> Laboratorians)
         {
-            
+            _Laboratorians = Laboratorians;
         }
 
         #region Команды
+
+
+
+
+        #region Данные
+
+        private ICommand _LoadDataCommand;
+
+        /// <summary> Загрузка данных </summary>
+        public ICommand LoadDataCommand => _LoadDataCommand ??=
+            new LambdaCommand(OnLoadDataCommandExecuted, CanLoadDataCommandExecute);
+
+        private bool CanLoadDataCommandExecute(object p) => true;
+
+        private void OnLoadDataCommandExecuted(object p)
+        {
+            LoadData();
+        }
+
+        private void LoadData()
+        {
+            Load(Laboratorians, _Laboratorians);
+        }
+
+        private static void Load<T>(ObservableCollection<T> collection, IRepository<T> repository) where T : Entity
+        {
+            collection.Clear();
+            foreach (var item in repository.GetAll())
+                collection.Add(item);
+        }
+
+        #endregion
+
+        #region Вспомогательные
 
         private ICommand _ShowDialogCommand;
 
@@ -57,6 +106,8 @@ namespace SilikatLab.ViewModels
         {
             Application.Current.Shutdown();
         }
+
+        #endregion
 
         #endregion
 

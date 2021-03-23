@@ -2,9 +2,9 @@
 
 namespace SilikatLab.lib.Data.Base
 {
-    class DesignTimeSPLaboratoryDbContextFactory : IDesignTimeDbContextFactory<SPLaboratoryDb>
+    class DesignTimeSPLaboratoryDbContextFactory : IDesignTimeDbContextFactory<SPLaboratoryEntities>
     {
-        public SPLaboratoryDb CreateDbContext(string[] args)
+        public SPLaboratoryEntities CreateDbContext(string[] args)
         {
             return new();
         }

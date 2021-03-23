@@ -15,20 +15,20 @@ namespace SilikatLabConsole
             ConsoleToRussian();
             //Random rnd = new Random();
 
-            using (var db = new SPLaboratoryDb())
+            using (var db = new SPLaboratoryEntities())
             {
                 db.Database.Migrate();
             }
 
-            //using (var db = new SPLaboratoryDb()) db.Database.Migrate();
+            //using (var db = new SPLaboratoryEntities()) db.Database.Migrate();
 
-            using (var db = new SPLaboratoryDb())
+            using (var db = new SPLaboratoryEntities())
             {
 
-                SPLaboratoryDb.AddTestData(db);
+                SPLaboratoryEntities.AddTestData(db);
             }
 
-            using (var db = new SPLaboratoryDb())
+            using (var db = new SPLaboratoryEntities())
             {
                 var tasks = db.WorkTasks
                     .Include(t => t.TypeResearch)
@@ -45,7 +45,7 @@ namespace SilikatLabConsole
 
 
 
-            using (var db = new SPLaboratoryDb())
+            using (var db = new SPLaboratoryEntities())
             {
                 var researches = db.Researches
                     .Include(r => r.Laboratorian)

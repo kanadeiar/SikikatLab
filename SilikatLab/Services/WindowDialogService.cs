@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows;
-using SilikatLab.Interfaces;
+using SilikatLab.lib.Interfaces;
 
 namespace SilikatLab.Services
 {

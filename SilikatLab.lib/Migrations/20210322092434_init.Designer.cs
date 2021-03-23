@@ -9,7 +9,7 @@ using SilikatLab.lib.Data.Base;
 
 namespace SilikatLab.lib.Migrations
 {
-    [DbContext(typeof(SPLaboratoryDb))]
+    [DbContext(typeof(SPLaboratoryEntities))]
     [Migration("20210322092434_init")]
     partial class init
     {

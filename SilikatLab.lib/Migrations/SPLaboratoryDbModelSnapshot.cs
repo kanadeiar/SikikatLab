@@ -8,7 +8,7 @@ using SilikatLab.lib.Data.Base;
 
 namespace SilikatLab.lib.Migrations
 {
-    [DbContext(typeof(SPLaboratoryDb))]
+    [DbContext(typeof(SPLaboratoryEntities))]
     partial class SPLaboratoryDbModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

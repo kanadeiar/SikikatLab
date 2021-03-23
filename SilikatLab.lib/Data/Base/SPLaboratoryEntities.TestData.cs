@@ -6,27 +6,27 @@ using SilikatLab.lib.Models.Researches;
 
 namespace SilikatLab.lib.Data.Base
 {
-    public partial class SPLaboratoryDb
+    public partial class SPLaboratoryEntities
     {
         private static Random rnd = new Random();
         /// <summary> Добавление тестовых данных в таблицы </summary>
-        public static void AddTestData(SPLaboratoryDb db, int power = 10)
+        public static void AddTestData(SPLaboratoryEntities entities, int power = 10)
         {
-            AddLaboratorians(db, power);
-            AddLogins(db);
-            AddWorkShifts(db, power);
-            AddTypeResearches(db, power);
-            AddObjects(db, power);
-            AddWorkTasks(db, power);
-            AddResearches(db, power);
+            AddLaboratorians(entities, power);
+            AddLogins(entities);
+            AddWorkShifts(entities, power);
+            AddTypeResearches(entities, power);
+            AddObjects(entities, power);
+            AddWorkTasks(entities, power);
+            AddResearches(entities, power);
         }
 
-        private static void AddResearches(SPLaboratoryDb db, int power)
+        private static void AddResearches(SPLaboratoryEntities entities, int power)
         {
-            var tasks = db.WorkTasks.ToArray();
+            var tasks = entities.WorkTasks.ToArray();
             var researches = new List<Research>();
-            var labolatorians = db.Laboratorians.ToArray();
-            var workshifts = db.WorkShifts.ToArray();
+            var labolatorians = entities.Laboratorians.ToArray();
+            var workshifts = entities.WorkShifts.ToArray();
             for (int i = 0; i < power * 10; i++)
             {
                 var task = tasks[rnd.Next(tasks.Length)];
@@ -66,12 +66,12 @@ namespace SilikatLab.lib.Data.Base
                 Laboratorian = labolatorians[rnd.Next(labolatorians.Length)],
                 WorkShift = workshifts[rnd.Next(workshifts.Length)],
             });
-            db.Researches.AddRange(researches);
-            db.SaveChanges();
+            entities.Researches.AddRange(researches);
+            entities.SaveChanges();
             var researchesQ = new List<BlockQualityResearch>();
-            tasks = db.WorkTasks.Where(t => t.TypeResearch.TypeResult == TypeResearch.IsTypeResult.BlockQualityResearch)
+            tasks = entities.WorkTasks.Where(t => t.TypeResearch.TypeResult == TypeResearch.IsTypeResult.BlockQualityResearch)
                 .ToArray();
-            labolatorians = db.Laboratorians.ToArray();
+            labolatorians = entities.Laboratorians.ToArray();
             for (int i = 0; i < power; i++)
             {
                 var task = tasks[rnd.Next(tasks.Length)];
@@ -103,10 +103,10 @@ namespace SilikatLab.lib.Data.Base
                 });
             }
 
-            db.BlockQualityResearches.AddRange(researchesQ);
-            db.SaveChanges();
+            entities.BlockQualityResearches.AddRange(researchesQ);
+            entities.SaveChanges();
             var researchesS = new List<SludgeResearch>();
-            tasks = db.WorkTasks.Where(t => t.TypeResearch.TypeResult == TypeResearch.IsTypeResult.SludgeResearch).ToArray();
+            tasks = entities.WorkTasks.Where(t => t.TypeResearch.TypeResult == TypeResearch.IsTypeResult.SludgeResearch).ToArray();
             for (int i = 0; i < power; i++)
             {
                 var task = tasks[rnd.Next(tasks.Length)];
@@ -130,10 +130,10 @@ namespace SilikatLab.lib.Data.Base
                 });
             }
 
-            db.SludgeResearches.AddRange(researchesS);
-            db.SaveChanges();
+            entities.SludgeResearches.AddRange(researchesS);
+            entities.SaveChanges();
             var researchesC = new List<CementResearch>();
-            tasks = db.WorkTasks.Where(t => t.TypeResearch.TypeResult == TypeResearch.IsTypeResult.CementReseatch).ToArray();
+            tasks = entities.WorkTasks.Where(t => t.TypeResearch.TypeResult == TypeResearch.IsTypeResult.CementReseatch).ToArray();
             for (int i = 0; i < power; i++)
             {
                 var task = tasks[rnd.Next(tasks.Length)];
@@ -158,10 +158,10 @@ namespace SilikatLab.lib.Data.Base
                 });
             }
 
-            db.CementResearches.AddRange(researchesC);
-            db.SaveChanges();
+            entities.CementResearches.AddRange(researchesC);
+            entities.SaveChanges();
             var researchesHB = new List<HammerBinderResearch>();
-            tasks = db.WorkTasks.Where(t => t.TypeResearch.TypeResult == TypeResearch.IsTypeResult.HammerBinderResearch)
+            tasks = entities.WorkTasks.Where(t => t.TypeResearch.TypeResult == TypeResearch.IsTypeResult.HammerBinderResearch)
                 .ToArray();
             for (int i = 0; i < power; i++)
             {
@@ -183,14 +183,14 @@ namespace SilikatLab.lib.Data.Base
                 });
             }
 
-            db.HammerBinderResearches.AddRange(researchesHB);
-            db.SaveChanges();
+            entities.HammerBinderResearches.AddRange(researchesHB);
+            entities.SaveChanges();
         }
 
-        private static void AddWorkTasks(SPLaboratoryDb db, int power)
+        private static void AddWorkTasks(SPLaboratoryEntities entities, int power)
         {
-            var types = db.TypeResearches;
-            var objects = db.ResearchObjects.ToArray();
+            var types = entities.TypeResearches;
+            var objects = entities.ResearchObjects.ToArray();
             var tasks = Enumerable.Range(1, power)
                 .Select(i => new WorkTask
                 {
@@ -252,22 +252,22 @@ namespace SilikatLab.lib.Data.Base
                 TypeResearch = types.First(t => t.TypeResult == TypeResearch.IsTypeResult.HammerBinderResearch),
                 ResearchObject = objects[rnd.Next(objects.Length)],
             });
-            db.WorkTasks.AddRange(tasks);
-            db.SaveChanges();
+            entities.WorkTasks.AddRange(tasks);
+            entities.SaveChanges();
         }
 
-        private static void AddObjects(SPLaboratoryDb db, int power)
+        private static void AddObjects(SPLaboratoryEntities entities, int power)
         {
             var objects = Enumerable.Range(1, power)
                 .Select(i => new ResearchObject
                 {
                     Name = $"Массив № {i}",
                 }).ToArray();
-            db.ResearchObjects.AddRange(objects);
-            db.SaveChanges();
+            entities.ResearchObjects.AddRange(objects);
+            entities.SaveChanges();
         }
 
-        private static void AddTypeResearches(SPLaboratoryDb db, int power)
+        private static void AddTypeResearches(SPLaboratoryEntities entities, int power)
         {
             var types = Enumerable.Range(1, power / 3)
                 .Select(i => new TypeResearch
@@ -295,22 +295,22 @@ namespace SilikatLab.lib.Data.Base
                 Name = "Исследование молото-вяжущего",
                 TypeResult = TypeResearch.IsTypeResult.HammerBinderResearch,
             });
-            db.TypeResearches.AddRange(types);
-            db.SaveChanges();
+            entities.TypeResearches.AddRange(types);
+            entities.SaveChanges();
         }
 
-        private static void AddWorkShifts(SPLaboratoryDb db, int power)
+        private static void AddWorkShifts(SPLaboratoryEntities entities, int power)
         {
             var shifts = Enumerable.Range(1, power / 3)
                 .Select(i => new WorkShift
                 {
                     Name = $"Смена № {i}"
                 });
-            db.WorkShifts.AddRange(shifts);
-            db.SaveChanges();
+            entities.WorkShifts.AddRange(shifts);
+            entities.SaveChanges();
         }
 
-        private static void AddLogins(SPLaboratoryDb db)
+        private static void AddLogins(SPLaboratoryEntities entities)
         {
             var logins = new List<UserLogin>()
             {
@@ -325,7 +325,7 @@ namespace SilikatLab.lib.Data.Base
                     Login = "user",
                     Password = "1",
                     Access = UserLogin.AccessLevel.Edit,
-                    Laboratorian = db.Laboratorians.Find(1),
+                    Laboratorian = entities.Laboratorians.Find(1),
                 },
                 new()
                 {
@@ -334,11 +334,11 @@ namespace SilikatLab.lib.Data.Base
                     Access = UserLogin.AccessLevel.Control,
                 },
             };
-            db.UserLogins.AddRange(logins);
-            db.SaveChanges();
+            entities.UserLogins.AddRange(logins);
+            entities.SaveChanges();
         }
 
-        private static void AddLaboratorians(SPLaboratoryDb db, int power)
+        private static void AddLaboratorians(SPLaboratoryEntities entities, int power)
         {
             var labors = Enumerable.Range(1, power / 3)
                 .Select(i => new Laboratorian
@@ -347,67 +347,67 @@ namespace SilikatLab.lib.Data.Base
                     Name = $"Галина{i}",
                     Patronymic = $"Ивановна{i}",
                 });
-            db.Laboratorians.AddRange(labors);
-            db.SaveChanges();
+            entities.Laboratorians.AddRange(labors);
+            entities.SaveChanges();
         }
 
         /// <summary> Очистка таблиц базы данных </summary>
-        public static void ClearData(SPLaboratoryDb db)
+        public static void ClearData(SPLaboratoryEntities entities)
         {
-            if (db.HammerBinderResearches.Any())
+            if (entities.HammerBinderResearches.Any())
             {
-                db.HammerBinderResearches.RemoveRange(db.HammerBinderResearches);
-                db.SaveChanges();
+                entities.HammerBinderResearches.RemoveRange(entities.HammerBinderResearches);
+                entities.SaveChanges();
             }
-            if (db.CementResearches.Any())
+            if (entities.CementResearches.Any())
             {
-                db.CementResearches.RemoveRange(db.CementResearches);
-                db.SaveChanges();
+                entities.CementResearches.RemoveRange(entities.CementResearches);
+                entities.SaveChanges();
             }
-            if (db.SludgeResearches.Any())
+            if (entities.SludgeResearches.Any())
             {
-                db.SludgeResearches.RemoveRange(db.SludgeResearches);
-                db.SaveChanges();
+                entities.SludgeResearches.RemoveRange(entities.SludgeResearches);
+                entities.SaveChanges();
             }
-            if (db.BlockQualityResearches.Any())
+            if (entities.BlockQualityResearches.Any())
             {
-                db.BlockQualityResearches.RemoveRange(db.BlockQualityResearches);
-                db.SaveChanges();
+                entities.BlockQualityResearches.RemoveRange(entities.BlockQualityResearches);
+                entities.SaveChanges();
             }
-            if (db.Researches.Any())
+            if (entities.Researches.Any())
             {
-                db.Researches.RemoveRange(db.Researches);
-                db.SaveChanges();
+                entities.Researches.RemoveRange(entities.Researches);
+                entities.SaveChanges();
             }
-            if (db.WorkTasks.Any())
+            if (entities.WorkTasks.Any())
             {
-                db.WorkTasks.RemoveRange(db.WorkTasks);
-                db.SaveChanges();
+                entities.WorkTasks.RemoveRange(entities.WorkTasks);
+                entities.SaveChanges();
             }
-            if (db.ResearchObjects.Any())
+            if (entities.ResearchObjects.Any())
             {
-                db.ResearchObjects.RemoveRange(db.ResearchObjects);
-                db.SaveChanges();
+                entities.ResearchObjects.RemoveRange(entities.ResearchObjects);
+                entities.SaveChanges();
             }
-            if (db.TypeResearches.Any())
+            if (entities.TypeResearches.Any())
             {
-                db.TypeResearches.RemoveRange(db.TypeResearches);
-                db.SaveChanges();
+                entities.TypeResearches.RemoveRange(entities.TypeResearches);
+                entities.SaveChanges();
             }
-            if (db.WorkShifts.Any())
+            if (entities.WorkShifts.Any())
             {
-                db.WorkShifts.RemoveRange(db.WorkShifts);
-                db.SaveChanges();
+                entities.WorkShifts.RemoveRange(entities.WorkShifts);
+                entities.SaveChanges();
             }
-            if (db.UserLogins.Any())
+            if (entities.UserLogins.Any())
             {
-                db.UserLogins.RemoveRange(db.UserLogins);
-                db.SaveChanges();
+                entities.UserLogins.RemoveRange(entities.UserLogins);
+                entities.SaveChanges();
             }
-            if (db.Laboratorians.Any())
+            if (entities.Laboratorians.Any())
             {
-                db.Laboratorians.RemoveRange(db.Laboratorians);
-                db.SaveChanges();
+                entities.Laboratorians.RemoveRange(entities.Laboratorians);
+                entities.SaveChanges();
             }
         }
     }

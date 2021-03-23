@@ -5,7 +5,7 @@ using SilikatLab.lib.Models.Researches;
 namespace SilikatLab.lib.Data.Base
 {
     /// <summary> Лабораторная база данных Силикат Плюс </summary>
-    public partial class SPLaboratoryDb : DbContext
+    public partial class SPLaboratoryEntities : DbContext
     {
         private readonly string _ConnectionString;
         /// <summary> Авторизация пользователей </summary>
@@ -30,7 +30,7 @@ namespace SilikatLab.lib.Data.Base
         public DbSet<CementResearch> CementResearches { get; set; }
         /// <summary> Результаты исследования молото-вяжущего </summary>
         public DbSet<HammerBinderResearch> HammerBinderResearches { get; set; }
-        public SPLaboratoryDb(string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SPLaboratory.DB")
+        public SPLaboratoryEntities(string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SPLaboratory.DB")
         {
             _ConnectionString = connectionString;
         }

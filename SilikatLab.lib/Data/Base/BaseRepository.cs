@@ -10,6 +10,7 @@ namespace SilikatLab.lib.Data.Base
     {
         private readonly SPLaboratoryEntities _entities;
         private readonly DbSet<T> _table;
+        protected SPLaboratoryEntities Context => _entities;
         public BaseRepository(SPLaboratoryEntities laboratoryEntities)
         {
             _entities = laboratoryEntities;

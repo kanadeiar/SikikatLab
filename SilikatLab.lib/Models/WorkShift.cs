@@ -6,7 +6,7 @@ using SilikatLab.lib.Models.Base;
 namespace SilikatLab.lib.Models
 {
     /// <summary> Смена </summary>
-    public class WorkShift : Entity
+    public partial class WorkShift : Entity
     {
         private string _Name;
 

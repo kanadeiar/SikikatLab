@@ -7,10 +7,10 @@ using SilikatLab.lib.Models.Base;
 namespace SilikatLab.lib.Models
 {
     /// <summary> Задание </summary>
-    public class WorkTask : Entity
+    public partial class WorkTask : Entity
     {
         private DateTime _DateTime;
-
+        
         /// <summary> Датавремя создания задания </summary>
         [Required]
         public DateTime DateTime
@@ -65,6 +65,5 @@ namespace SilikatLab.lib.Models
 
         /// <summary> Результаты исследования </summary>
         public IEnumerable<Research> ResearchResults { get; set; } = new List<Research>();
-
     }
 }

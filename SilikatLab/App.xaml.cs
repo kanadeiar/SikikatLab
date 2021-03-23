@@ -25,12 +25,18 @@ namespace SilikatLab
         private static void InitializeServices(IServiceCollection Services)
         {
             Services.AddDbContext<SPLaboratoryEntities>();
-            Services.AddScoped<IRepository<Laboratorian>, LaboratorianRepository>();
+            Services.AddSingleton<IRepository<Laboratorian>, LaboratorianRepository>();
+            Services.AddSingleton<IRepository<ResearchObject>, ResearchObjectRepository>();
+            Services.AddSingleton<IRepository<TypeResearch>, TypeResearchRepository>();
+            Services.AddSingleton<IRepository<UserLogin>, UserLoginRepository>();
+            Services.AddSingleton<IRepository<WorkShift>, WorkShiftRepository>();
+            Services.AddSingleton<IRepository<WorkTask>, WorkTaskRepository>();
 
+            Services.AddSingleton<IRepository<Research>, ResearchRepository>();
 
             Services.AddTransient<IDialogService, WindowDialogService>();
 
-            Services.AddScoped<MainWindowViewModel>();
+            Services.AddSingleton<MainWindowViewModel>();
 
         }
     }

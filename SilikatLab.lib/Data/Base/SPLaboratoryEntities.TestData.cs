@@ -23,9 +23,11 @@ namespace SilikatLab.lib.Data.Base
 
         private static void AddResearches(SPLaboratoryEntities entities, int power)
         {
+            var types = entities.TypeResearches.ToArray();
             var tasks = entities.WorkTasks.ToArray();
             var researches = new List<Research>();
             var labolatorians = entities.Laboratorians.ToArray();
+            var objects = entities.ResearchObjects.ToArray();
             var workshifts = entities.WorkShifts.ToArray();
             for (int i = 0; i < power * 10; i++)
             {
@@ -41,6 +43,8 @@ namespace SilikatLab.lib.Data.Base
                     WorkTask = task,
                     Laboratorian = labolatorians[rnd.Next(labolatorians.Length)],
                     WorkShift = workshifts[rnd.Next(workshifts.Length)],
+                    ResearchObject = task.ResearchObject,
+                    TypeResearch = task.TypeResearch,
                 });
             }
 
@@ -54,6 +58,8 @@ namespace SilikatLab.lib.Data.Base
                 Description = $"Описание результата исследования № 99",
                 Laboratorian = labolatorians[rnd.Next(labolatorians.Length)],
                 WorkShift = workshifts[rnd.Next(workshifts.Length)],
+                ResearchObject = objects[rnd.Next(objects.Length)],
+                TypeResearch = types[rnd.Next(types.Length)],
             });
             researches.Add(new Research
             {
@@ -65,6 +71,8 @@ namespace SilikatLab.lib.Data.Base
                 Description = $"Описание результата исследования № 999",
                 Laboratorian = labolatorians[rnd.Next(labolatorians.Length)],
                 WorkShift = workshifts[rnd.Next(workshifts.Length)],
+                ResearchObject = objects[rnd.Next(objects.Length)],
+                TypeResearch = types[rnd.Next(types.Length)],
             });
             entities.Researches.AddRange(researches);
             entities.SaveChanges();
@@ -86,6 +94,8 @@ namespace SilikatLab.lib.Data.Base
                     WorkTask = task,
                     Laboratorian = labolatorians[rnd.Next(labolatorians.Length)],
                     WorkShift = workshifts[rnd.Next(workshifts.Length)],
+                    ResearchObject = objects[rnd.Next(objects.Length)],
+                    TypeResearch = types[rnd.Next(types.Length)],
                     Format = "600*300*200",
                     Trademark = "D500",
                     Weight = (float) rnd.NextDouble() * 30.0f + 600.0f,
@@ -120,6 +130,8 @@ namespace SilikatLab.lib.Data.Base
                     WorkTask = task,
                     Laboratorian = labolatorians[rnd.Next(labolatorians.Length)],
                     WorkShift = workshifts[rnd.Next(workshifts.Length)],
+                    ResearchObject = objects[rnd.Next(objects.Length)],
+                    TypeResearch = types[rnd.Next(types.Length)],
                     Density = rnd.Next(1500, 1600),
                     Surface = rnd.Next(2500, 3000),
                     Sieve0_8 = (float) rnd.NextDouble() + 30.0f,
@@ -147,6 +159,8 @@ namespace SilikatLab.lib.Data.Base
                     WorkTask = task,
                     Laboratorian = labolatorians[rnd.Next(labolatorians.Length)],
                     WorkShift = workshifts[rnd.Next(workshifts.Length)],
+                    ResearchObject = objects[rnd.Next(objects.Length)],
+                    TypeResearch = types[rnd.Next(types.Length)],
                     Party = rnd.Next(1000, 9000).ToString(),
                     PassportVc = (float) rnd.NextDouble() + 30.0f,
                     PassportNsh = (float) rnd.NextDouble() + 180.0f,
@@ -176,6 +190,8 @@ namespace SilikatLab.lib.Data.Base
                     WorkTask = task,
                     Laboratorian = labolatorians[rnd.Next(labolatorians.Length)],
                     WorkShift = workshifts[rnd.Next(workshifts.Length)],
+                    ResearchObject = objects[rnd.Next(objects.Length)],
+                    TypeResearch = types[rnd.Next(types.Length)],
                     Sieve0_2 = (float) rnd.NextDouble() + 30.0f,
                     Surface = (float) rnd.NextDouble() * 10.0f + 10.0f,
                     Perfomance = (float) rnd.NextDouble() * 10.0f + 10.0f,

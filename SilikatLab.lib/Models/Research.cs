@@ -1,12 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography.X509Certificates;
 using SilikatLab.lib.Models.Base;
 
 namespace SilikatLab.lib.Models
 {
     /// <summary> Результат исследования </summary>
-    public class Research : Entity
+    public partial class Research : Entity
     {
         private DateTime _DateTime;
 
@@ -70,9 +71,11 @@ namespace SilikatLab.lib.Models
         public virtual WorkTask WorkTask { get; set; }
 
         /// <summary> Вид исследования </summary>
+        [Required]
         public virtual TypeResearch TypeResearch { get; set; }
 
         /// <summary> Объект исследования </summary>
+        [Required]
         public virtual ResearchObject ResearchObject { get; set; }
 
         /// <summary> Лаборант </summary>

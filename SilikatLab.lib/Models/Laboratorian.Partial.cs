@@ -4,10 +4,8 @@ namespace SilikatLab.lib.Models
 {
     public partial class Laboratorian
     {
-        public override string ToString()
-        {
-            return $"{SurName} {Name} {Patronymic}";
-        }
+        public override string ToString() => $"{SurName} {Name} {Patronymic}";
+        /// <summary> Полное наименование </summary>
         [NotMapped] public string FullName => $"{SurName} {Name} {Patronymic}";
     }
 }

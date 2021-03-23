@@ -1,15 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using SilikatLab.lib.Models.Base;
 
 namespace SilikatLab.lib.Models
 {
     /// <summary> Вид исследования </summary>
-    public class TypeResearch : Entity
+    public partial class TypeResearch : Entity
     {
         private string _Name;
 
         /// <summary> Название </summary>
+        [Required, MaxLength(200)]
         public string Name
         {
             get => _Name;
@@ -35,15 +36,21 @@ namespace SilikatLab.lib.Models
         public enum IsTypeResult
         {
             /// <summary> Простое исследование - цифра и текст </summary>
-            Simple = 0, 
+            Simple = 0,
+
             /// <summary> Контроль качества блоков </summary>
-            BlockQualityResearch, 
+            BlockQualityResearch,
+
             /// <summary> Исследование шлама </summary>
-            SludgeResearch, 
+            SludgeResearch,
+
             /// <summary> Исследование цемента </summary>
-            CementReseatch, 
+            CementReseatch,
+
             /// <summary> Исследование молото-вяжущего </summary>
-            HammerBinderResearch, 
+            HammerBinderResearch,
         }
     }
+
+
 }

@@ -5,7 +5,7 @@ using SilikatLab.lib.Models.Base;
 namespace SilikatLab.lib.Models
 {
     /// <summary> Объект исследования </summary>
-    public class ResearchObject : Entity
+    public partial class ResearchObject : Entity
     {
         private string _Name;
 

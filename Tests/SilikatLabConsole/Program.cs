@@ -20,12 +20,12 @@ namespace SilikatLabConsole
                 db.Database.Migrate();
             }
 
-            //using (var db = new SPLaboratoryEntities()) db.Database.Migrate();
+            using (var db = new SPLaboratoryEntities()) db.Database.Migrate();
 
             using (var db = new SPLaboratoryEntities())
             {
-
-                SPLaboratoryEntities.AddTestData(db);
+                //SPLaboratoryEntities.ClearData(db);
+                //SPLaboratoryEntities.AddTestData(db);
             }
 
             using (var db = new SPLaboratoryEntities())
@@ -34,13 +34,11 @@ namespace SilikatLabConsole
                     .Include(t => t.TypeResearch)
                     .Include(t => t.ResearchObject)
                     .Include(t => t.ResearchResults);
-                //var str = tasks.ToQueryString();
                 Console.WriteLine("Задания:");
                 foreach (var t in tasks)
                 {
                     Console.WriteLine($"Дата: {t.DateTime:f} Вып-е: {t.TaskDateTime:f} Наз-е: {t.Name} Исс-е: {t.TypeResearch.Name} К-во: {t.ResearchResults.Count()}");
                 }
-                //Console.WriteLine($"Запрос:\n{str}");
             }
 
 

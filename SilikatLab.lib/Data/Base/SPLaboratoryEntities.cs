@@ -30,7 +30,7 @@ namespace SilikatLab.lib.Data.Base
         public DbSet<CementResearch> CementResearches { get; set; }
         /// <summary> Результаты исследования молото-вяжущего </summary>
         public DbSet<HammerBinderResearch> HammerBinderResearches { get; set; }
-        public SPLaboratoryEntities(string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SPLaboratory.DB")
+        public SPLaboratoryEntities(string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SPLaboratoryDev.DB")
         {
             _ConnectionString = connectionString;
         }

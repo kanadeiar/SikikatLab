@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using SilikatLab.lib.Models.Base;
 
 namespace SilikatLab.lib.Models
 {
     /// <summary> Логин пользователя </summary>
-    public class UserLogin : Entity
+    public partial class UserLogin : Entity
     {
         private string _Login;
 

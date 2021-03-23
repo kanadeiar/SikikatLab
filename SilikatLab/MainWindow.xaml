@@ -26,11 +26,91 @@
                           CommandParameter="Незавершенная версия приложения"/>
             </MenuItem>
         </Menu>
-        <Grid>
-            <DataGrid ItemsSource="{Binding Laboratorians}">
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock Text="Нет соединения с базой данных" Background="LightGray"/>
+            </StatusBarItem>
+        </StatusBar>
+        <TabControl DockPanel.Dock="Top">
+            <TabItem Header="База данных">
+                <TabControl>
+                    <TabItem Header="Задания лаборанту">
+                        <DataGrid ItemsSource="{Binding WorkTasks}" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="Beige">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Дата задания" Binding="{Binding DateTime, StringFormat=d.MM.yyy hh:mm}"/>
+                                <DataGridTextColumn Header="Выполнить" Binding="{Binding TaskDateTime, StringFormat=d.MM.yyy hh:mm}"/>
+                                <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
+                                <DataGridCheckBoxColumn Binding="{Binding Completed}" Width="30"/>
+                                <DataGridTextColumn Header="Выполнение" Binding="{Binding CompletedString}"/>
+                                <DataGridTextColumn Header="Повтор" Binding="{Binding AgainText}"/>
+                                <DataGridTextColumn Header="Вид исследования" Binding="{Binding TypeResearch.Name}"/>
+                                <DataGridTextColumn Header="Объект исследования" Binding="{Binding ResearchObject.Name}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Header="Результаты">
+                        <DataGrid ItemsSource="{Binding Researches}" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="AntiqueWhite">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Дата" Binding="{Binding DateTime, StringFormat=d.MM.yyy hh:mm}"/>
+                                <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>    
+                                <DataGridTextColumn Header="Значение" Binding="{Binding Value, StringFormat=f2}"/>
+                                <DataGridTextColumn Header="Текст" Binding="{Binding Text}"/>
+                                <DataGridCheckBoxColumn Binding="{Binding Normal}" Width="30"/>
+                                <DataGridTextColumn Header="Норма" Binding="{Binding NormalString}"/>
+                                <DataGridTextColumn Header="Примечание" Binding="{Binding Description}"/>
+                                <DataGridTextColumn Header="Задание" Binding="{Binding WorkTask.Name}"/>
+                                <DataGridTextColumn Header="Вид исследования" Binding="{Binding TypeResearch.Name}"/>
+                                <DataGridTextColumn Header="Объект исследования" Binding="{Binding ResearchObject.Name}"/>
+                                <DataGridTextColumn Header="Лаборант" Binding="{Binding Laboratorian.FullName}"/>
+                                <DataGridTextColumn Header="Смена" Binding="{Binding WorkShift.Name}"/>
+                                <DataGridTextColumn Header="Полное название" Binding="{Binding}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Header="Лаборанты">
+                        <DataGrid ItemsSource="{Binding Laboratorians}" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="#ccffcc">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Фамилия Имя Отчество" Binding="{Binding FullName}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Header="Объекты">
+                        <DataGrid ItemsSource="{Binding ResearchObjects}" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="Yellow">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Header="Виды исследований">
+                        <DataGrid ItemsSource="{Binding TypeResearches}" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="Aqua">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Наименование" Binding="{Binding Name}"/>
+                                <DataGridTextColumn Header="Вид" Binding="{Binding TypeResultString}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Header="Логины пользователей">
+                        <DataGrid ItemsSource="{Binding UserLogins}" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="Azure">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Логин" Binding="{Binding Login}"/>
+                                <DataGridTextColumn Header="Лаборант" Binding="{Binding Laboratorian}"/>
+                                <DataGridTextColumn Header="Уровень прав" Binding="{Binding AccessLevelString}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
+                    <TabItem Header="Рабочие смены">
+                        <DataGrid ItemsSource="{Binding WorkShifts}" AutoGenerateColumns="False" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </TabItem>
 
-            </DataGrid>
-        </Grid>
+
+                </TabControl>
+            </TabItem>
+        </TabControl>
+
 
 
     </DockPanel>

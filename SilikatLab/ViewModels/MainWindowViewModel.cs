@@ -12,6 +12,7 @@ using SilikatLab.lib.Interfaces;
 using SilikatLab.lib.Models;
 using SilikatLab.lib.Models.Base;
 using SilikatLab.ViewModels.Base;
+using SilikatLab.Windows;
 
 namespace SilikatLab.ViewModels
 {
@@ -144,7 +145,21 @@ namespace SilikatLab.ViewModels
 
         #endregion
 
+        private ICommand _ShowAddNewResearchWindowdCommand;
 
+        /// <summary> Команда показа окна добавления нового </summary>
+        public ICommand ShowAddNewResearchWindowdCommand => _ShowAddNewResearchWindowdCommand ??=
+            new LambdaCommand(OnShowAddNewResearchWindowdCommandExecuted, CanShowAddNewResearchWindowdCommandExecute);
+
+        private bool CanShowAddNewResearchWindowdCommandExecute(object p) => true;
+
+        private void OnShowAddNewResearchWindowdCommandExecuted(object p)
+        {
+            var window = new AddNewResearchWindow();
+            window.Owner = Application.Current.Windows.Cast<Window>()
+                .FirstOrDefault(win => win.IsActive);
+            window.ShowDialog();
+        }
 
         #region Вспомогательные
 

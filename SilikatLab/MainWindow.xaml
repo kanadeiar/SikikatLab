@@ -86,7 +86,8 @@
                             <TextBox Grid.Column="1" Grid.Row="6" IsReadOnly="True" Text="{Binding SelectedWorkTaskMain.ResearchObject.Name}" Margin="3"/>
                         </Grid>
                         <StackPanel Grid.Row="1" Orientation="Horizontal">
-                            <Button Content="Ввести новый результат исследования" Margin="5" Padding="10" Background="LimeGreen"/>
+                            <Button Content="Ввести новый результат исследования" Margin="5" Padding="10" Background="LimeGreen"
+                                    Command="{Binding ShowAddNewResearchWindowdCommand}"/>
                         </StackPanel>
                         <TextBlock Grid.Row="2" Text="Исследования по этому заданию:" HorizontalAlignment="Center"/>
                         <DataGrid Grid.Row="3" IsReadOnly="True" AutoGenerateColumns="False" AlternatingRowBackground="AntiqueWhite"

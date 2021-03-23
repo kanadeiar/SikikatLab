@@ -1,0 +1,70 @@
+﻿<Window x:Class="SilikatLab.Windows.AddNewResearchWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SilikatLab.Windows"
+        mc:Ignorable="d"
+        DataContext="{Binding MainWindowViewModel, Source={StaticResource Locator}}"
+        Title="Добавление нового исследования в базу данных" Height="500" Width="500" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+    <DockPanel>
+        <Grid DockPanel.Dock="Top" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Дата исследования:" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" Name="TextBoxDate" Text="10.03.2021" Margin="5"/>
+            <TextBlock Grid.Row="1" Text="Вид исследования:" VerticalAlignment="Center"/>
+            <ComboBox Grid.Column="1" Grid.Row="1" Name="ComboBoxNameReseasch" Margin="5"
+                      ItemsSource="{Binding TypeResearches}"
+                      SelectedIndex="0"/>
+            <TextBlock Grid.Row="2" Text="Объект исследования:" VerticalAlignment="Center"/>
+            <ComboBox Grid.Column="1" Grid.Row="2" Name="ComboBoxObject" Margin="5"
+                      ItemsSource="{Binding ResearchObjects}"
+                      SelectedIndex="0"/>
+            <TextBlock Grid.Row="3" Text="Смена:" VerticalAlignment="Center"/>
+            <ComboBox Grid.Column="1" Grid.Row="3" Name="ComboBoxShift" Margin="5"
+                      ItemsSource="{Binding WorkShifts}"
+                      SelectedIndex="0"/>
+            <TextBlock Grid.Row="4" Text="Задание:" VerticalAlignment="Center"/>
+            <ComboBox Grid.Column="1" Grid.Row="4" Name="ComboBoxWorkTask" Margin="5"
+                      ItemsSource="{Binding WorkTasks}"
+                      SelectedIndex="0"/>
+            <TextBlock Grid.Row="5" Text="Название исследования:" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="5" Grid.Column="1" Name="TextBoxName" Text="Исследование № 1" Margin="5"/>
+            <TextBlock Grid.Row="6" Grid.Column="0" Text="Значение:" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" Grid.Row="6" Name="TextBoxValue" Text="100,0" Margin="5"/>
+            <TextBlock Grid.Row="7" Text="Текстовый результат:" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" Grid.Row="7" Name="TextBoxResult" Text="Обычное исследование плотности № 1" Margin="5" Height="40" TextWrapping="Wrap"/>
+            <TextBlock Grid.Row="8" Text="Примечание:" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" Grid.Row="8" Name="TextBoxDescription" Text="Описание" Margin="5" Height="100" TextWrapping="Wrap"/>
+            <TextBlock Grid.Row="9" Text="Смена:" VerticalAlignment="Center"/>
+            <ComboBox Grid.Column="1" Grid.Row="9" Name="ComboBoxLaboratorian" Margin="5"
+                      ItemsSource="{Binding Laboratorians}"
+                      SelectedIndex="0"/>
+
+        </Grid>
+        <UniformGrid Rows="1">
+            <Button Content="Добавить" Name="ButtonAdd" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Background="SpringGreen" Cursor="Hand"/>
+            <Button Content="Отмена" Name="ButtonCancel" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Background="Yellow" Cursor="Hand"/>
+        </UniformGrid>
+
+    </DockPanel>
+</Window>

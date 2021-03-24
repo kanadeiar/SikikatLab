@@ -9,16 +9,20 @@
         DataContext="{Binding MainWindowViewModel, Source={StaticResource Locator}}"
         Title="{Binding Title}" 
         Height="700" Width="1000" WindowStartupLocation="CenterScreen" Background="LightCyan" ResizeMode="CanResizeWithGrip">
-    <!--<i:Interaction.Triggers>
+    <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadDataCommand}"/>
         </i:EventTrigger>
-    </i:Interaction.Triggers>-->
+    </i:Interaction.Triggers>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Меню">
                 <MenuItem Header="Выход" 
                           Command="{Binding CloseApplicationCommand}"/>
+            </MenuItem>
+            <MenuItem Header="Сервис">
+                <MenuItem Header="Обновить данные"
+                          Command="{Binding LoadDataCommand}"/>
             </MenuItem>
             <MenuItem Header="Справка">
                 <MenuItem Header="О программе ..." 
@@ -86,10 +90,10 @@
                             <TextBox Grid.Column="1" Grid.Row="6" IsReadOnly="True" Text="{Binding SelectedWorkTaskMain.ResearchObject.Name}" Margin="3"/>
                         </Grid>
                         <StackPanel Grid.Row="1" Orientation="Horizontal">
-                            <Button Content="Ввести новый результат исследования" Margin="5" Padding="10" Background="LimeGreen"
+                            <Button Content="Ввести новый результат исследования" Margin="5" Padding="20" Background="LimeGreen"
                                     Command="{Binding ShowAddNewResearchWindowdCommand}"/>
                         </StackPanel>
-                        <TextBlock Grid.Row="2" Text="Исследования по этому заданию:" HorizontalAlignment="Center"/>
+                        <TextBlock Grid.Row="2" Text="Исследования по этому заданию за последние 24 часа:" HorizontalAlignment="Center"/>
                         <DataGrid Grid.Row="3" IsReadOnly="True" AutoGenerateColumns="False" AlternatingRowBackground="AntiqueWhite"
                                   ItemsSource="{Binding DayResearchesOfSelectedWorkTaskMain}">
                             <DataGrid.Columns>
@@ -99,23 +103,121 @@
                                 <DataGridTextColumn Header="Текст" Binding="{Binding Text}"/>
                             </DataGrid.Columns>
                         </DataGrid>
-
-
-
                     </Grid>
-
-                    
-
-
                 </Grid>
             </TabItem>
             <TabItem Header="Результаты">
-
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Результаты за последние 24 часа:" HorizontalAlignment="Center"/>
+                    <DataGrid Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="AntiqueWhite" SelectionMode="Single"
+                              ItemsSource="{Binding DayResearchesMain}"
+                              SelectedItem="{Binding SelectedResearchMain}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Датавремя" Binding="{Binding DateTime, StringFormat=d.MM.yyyy HH:mm}"/>
+                            <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>    
+                            <DataGridTextColumn Header="Значение" Binding="{Binding Value, StringFormat=f2}"/>
+                            <DataGridTextColumn Header="Текст" Binding="{Binding Text}"/>
+                            <DataGridCheckBoxColumn Binding="{Binding Normal}" Width="30"/>
+                            <DataGridTextColumn Header="Норма" Binding="{Binding NormalString}"/>
+                            <DataGridTextColumn Header="Лаборант" Binding="{Binding Laboratorian.FullName}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Датавремя"/>
+                            <TextBox Text="{Binding SelectedResearchMain.DateTime, StringFormat=d.MM.yyyy HH:mm, Mode=OneWay}" Margin="5"/>
+                            <TextBlock Text="Название"/>
+                            <TextBox Text="{Binding SelectedResearchMain.Name, Mode=OneWay}" Margin="5"/>
+                            <TextBlock Text="Лаборант"/>
+                            <TextBox Text="{Binding SelectedResearchMain.Laboratorian.FullName, Mode=OneWay}" Margin="5"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="Значение"/>
+                            <TextBox Text="{Binding SelectedResearchMain.Value, StringFormat=f2, Mode=OneWay}" Margin="5"/>
+                            <TextBlock Text="Текст"/>
+                            <TextBox Text="{Binding SelectedResearchMain.Text, Mode=OneWay}" Margin="5"/>
+                            <TextBlock Text="Дата задания"/>
+                            <TextBox Text="{Binding SelectedResearchMain.WorkTask.DateTime, Mode=OneWay}" Margin="5"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Норма"/>
+                            <TextBox Text="{Binding SelectedResearchMain.NormalString, Mode=OneWay}" Margin="5"/>
+                            <TextBlock Text="Задание"/>
+                            <TextBox Text="{Binding SelectedResearchMain.WorkTask.Name, Mode=OneWay}" Margin="5"/>
+                        </StackPanel>
+                        <Button Grid.Column="3" Margin="10" Content="Подробный просмотр" Background="DeepSkyBlue"
+                                Command="{Binding ShowViewResearchWindowCommand}"/>
+                    </Grid>
+                </Grid>
             </TabItem>
             <TabItem Header="Архивные данные">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <DataGrid AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="AntiqueWhite" SelectionMode="Single"
+                                  ItemsSource="{Binding Researches}"
+                                  SelectedItem="{Binding SelectedResearchArch}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Дата" Binding="{Binding DateTime, StringFormat=d.MM.yyyy HH:mm}"/>
+                                <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>    
+                                <DataGridTextColumn Header="Значение" Binding="{Binding Value, StringFormat=f2}"/>
+                                <DataGridTextColumn Header="Текст" Binding="{Binding Text}"/>
+                                <DataGridCheckBoxColumn Binding="{Binding Normal}" Width="30"/>
+                                <DataGridTextColumn Header="Норма" Binding="{Binding NormalString}"/>
+                                <DataGridTextColumn Header="Лаборант" Binding="{Binding Laboratorian.FullName}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Датавремя"/>
+                            <TextBox Text="{Binding SelectedResearchArch.DateTime, StringFormat=d.MM.yyyy HH:mm, Mode=OneWay}" Margin="5"/>
+                            <TextBlock Text="Название"/>
+                            <TextBox Text="{Binding SelectedResearchArch.Name, Mode=OneWay}" Margin="5"/>
+                            <TextBlock Text="Лаборант"/>
+                            <TextBox Text="{Binding SelectedResearchArch.Laboratorian.FullName, Mode=OneWay}" Margin="5"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="Значение"/>
+                            <TextBox Text="{Binding SelectedResearchArch.Value, StringFormat=f2, Mode=OneWay}" Margin="5"/>
+                            <TextBlock Text="Текст"/>
+                            <TextBox Text="{Binding SelectedResearchArch.Text, Mode=OneWay}" Margin="5"/>
+                            <TextBlock Text="Дата задания"/>
+                            <TextBox Text="{Binding SelectedResearchArch.WorkTask.DateTime, Mode=OneWay}" Margin="5"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Норма"/>
+                            <TextBox Text="{Binding SelectedResearchArch.NormalString, Mode=OneWay}" Margin="5"/>
+                            <TextBlock Text="Задание"/>
+                            <TextBox Text="{Binding SelectedResearchArch.WorkTask.Name, Mode=OneWay}" Margin="5"/>
+                        </StackPanel>
+                        <Button Grid.Column="3" Margin="10" Content="Подробный просмотр" Background="DeepSkyBlue"
+                                Command="{Binding ShowViewResearchArchiveWindowCommand}"/>
+                    </Grid>
+                </Grid>
 
             </TabItem>
-            <TabItem Header="База данных">
+            <TabItem Header="Администрирование базы данных">
                 <TabControl>
                     <TabItem Header="Задания лаборанту">
                         <DataGrid ItemsSource="{Binding WorkTasks}" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="Beige">

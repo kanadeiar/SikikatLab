@@ -68,11 +68,47 @@ namespace SilikatLab.ViewModels
             }
         }
 
+        private Research _SelectedResearchMain;
+
+        /// <summary> Выбранный результат исследования во вкладке результатов </summary>
+        public Research SelectedResearchMain
+        {
+            get => _SelectedResearchMain;
+            set => Set(ref _SelectedResearchMain, value);
+        }
+
+        private Research _SelectedResearchArch;
+
+        /// <summary> Выбранный результат исследования во вкладке архива </summary>
+        public Research SelectedResearchArch
+        {
+            get => _SelectedResearchArch;
+            set => Set(ref _SelectedResearchArch, value);
+        }
+
         public IEnumerable<Research> DayResearchesOfSelectedWorkTaskMain =>
-            Researches.Where(r => r.WorkTask == SelectedWorkTaskMain && r.DateTime >= DateTime.Now.AddHours(- 24));
+            Researches.Where(r => r.WorkTask == SelectedWorkTaskMain && r.DateTime >= DateTime.Now.AddHours(- 2));
 
+        public IEnumerable<Research> DayResearchesMain =>
+            Researches.Where(r => r.DateTime >= DateTime.Now.AddHours(-2));
 
+        public IEnumerable<Laboratorian> AddNewResearchWindowLaboratorians =>
+            Laboratorians.Where(l => l.Inactive == false);
 
+        public IEnumerable<WorkTask> AddNewResearchWindowWorkTasks
+        {
+            get
+            {
+                var tasks = new List<WorkTask>();
+                tasks.Add(new WorkTask
+                {
+                    Name = "<Отсутствует задание>",
+                });
+                tasks.AddRange(WorkTasks);
+                return tasks;
+            }
+        }
+            
 
         #region Вспомогательные
 
@@ -105,7 +141,7 @@ namespace SilikatLab.ViewModels
             _WorkShifts = WorkShifts;
             _WorkTasks = WorkTasks;
             _Researches = Researches;
-            LoadData();
+            //LoadData();
         }
 
 
@@ -125,6 +161,7 @@ namespace SilikatLab.ViewModels
         private void OnLoadDataCommandExecuted(object p)
         {
             LoadData();
+            OnPropertyChanged(nameof(DayResearchesMain));
         }
 
         /// <summary> Загрузка из хранилища в коллекцию </summary>
@@ -153,13 +190,57 @@ namespace SilikatLab.ViewModels
         public ICommand ShowAddNewResearchWindowdCommand => _ShowAddNewResearchWindowdCommand ??=
             new LambdaCommand(OnShowAddNewResearchWindowdCommandExecuted, CanShowAddNewResearchWindowdCommandExecute);
 
-        private bool CanShowAddNewResearchWindowdCommandExecute(object p) => true;
+        private bool CanShowAddNewResearchWindowdCommandExecute(object p) => SelectedWorkTaskMain?.TypeResearch?.TypeResult == TypeResearch.IsTypeResult.Simple;
 
         private void OnShowAddNewResearchWindowdCommandExecuted(object p)
         {
             var window = new AddNewResearchWindow();
             window.Owner = Application.Current.Windows.Cast<Window>()
                 .FirstOrDefault(win => win.IsActive);
+            window.TargetTypeResearch = SelectedWorkTaskMain.TypeResearch;
+            window.TargetResearchObject = SelectedWorkTaskMain.ResearchObject;
+            window.TargetWorkTask = SelectedWorkTaskMain;
+            if (window.ShowDialog() == true)
+            {
+                var result = window.Research;
+                _Researches.Add(result);
+                Researches.Add(result);
+                OnPropertyChanged(nameof(DayResearchesOfSelectedWorkTaskMain));
+                OnPropertyChanged(nameof(DayResearchesMain));
+            }
+        }
+
+        private ICommand _ShowViewResearchWindowCommand;
+
+        /// <summary> Команда показа окна с подробными данными по результату </summary>
+        public ICommand ShowViewResearchWindowCommand => _ShowViewResearchWindowCommand ??=
+            new LambdaCommand(OnShowViewResearchWindowCommandExecuted, CanShowViewResearchWindowCommandExecute);
+
+        private bool CanShowViewResearchWindowCommandExecute(object p) => SelectedResearchMain != null;
+
+        private void OnShowViewResearchWindowCommandExecuted(object p)
+        {
+            var window = new ShowViewResearchWindow();
+            window.Owner = Application.Current.Windows.Cast<Window>()
+                .FirstOrDefault(win => win.IsActive);
+            window.Research = SelectedResearchMain;
+            window.ShowDialog();
+        }
+
+        private ICommand _ShowViewResearchArchiveWindowCommand;
+
+        /// <summary> Команда показа окна с подробными данными по результату из архива </summary>
+        public ICommand ShowViewResearchArchiveWindowCommand => _ShowViewResearchArchiveWindowCommand ??=
+            new LambdaCommand(OnShowViewResearchArchiveWindowCommandExecuted, CanShowViewResearchArchiveWindowCommandExecute);
+
+        private bool CanShowViewResearchArchiveWindowCommandExecute(object p) => SelectedResearchArch != null;
+
+        private void OnShowViewResearchArchiveWindowCommandExecuted(object p)
+        {
+            var window = new ShowViewResearchWindow();
+            window.Owner = Application.Current.Windows.Cast<Window>()
+                .FirstOrDefault(win => win.IsActive);
+            window.Research = SelectedResearchArch;
             window.ShowDialog();
         }
 

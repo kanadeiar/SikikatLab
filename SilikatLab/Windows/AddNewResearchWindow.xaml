@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SilikatLab.Windows"
         mc:Ignorable="d"
         DataContext="{Binding MainWindowViewModel, Source={StaticResource Locator}}"
-        Title="Добавление нового простого исследования в базу данных" Height="540" Width="500" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+        Title="Добавление нового простого исследования в базу данных" Height="540" Width="500" WindowStartupLocation="CenterOwner" ShowInTaskbar="False" Loaded="Window_Loaded">
     <DockPanel>
         <Grid DockPanel.Dock="Top" Margin="10">
             <Grid.ColumnDefinitions>
@@ -29,10 +29,10 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Дата исследования:" VerticalAlignment="Center"/>
-            <TextBox Grid.Column="1" Name="TextBoxDate" Text="10.03.2021" Margin="5"/>
+            <TextBlock Text="Датавремя исследования:" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" Name="TextBoxDate" Text="10.03.2021 12:00" Margin="5"/>
             <TextBlock Grid.Row="1" Text="Вид исследования:" VerticalAlignment="Center"/>
-            <ComboBox Grid.Column="1" Grid.Row="1" Name="ComboBoxNameReseasch" Margin="5"
+            <ComboBox Grid.Column="1" Grid.Row="1" Name="ComboBoxTypeReseasch" Margin="5"
                       ItemsSource="{Binding TypeResearches}"
                       SelectedIndex="0"/>
             <TextBlock Grid.Row="2" Text="Объект исследования:" VerticalAlignment="Center"/>
@@ -45,24 +45,28 @@
                       SelectedIndex="0"/>
             <TextBlock Grid.Row="4" Text="Задание:" VerticalAlignment="Center"/>
             <ComboBox Grid.Column="1" Grid.Row="4" Name="ComboBoxWorkTask" Margin="5"
-                      ItemsSource="{Binding WorkTasks}"/>
+                      ItemsSource="{Binding AddNewResearchWindowWorkTasks}"
+                      SelectedIndex="0"
+                      DisplayMemberPath="Name"/>
             <TextBlock Grid.Row="5" Text="Название исследования:" VerticalAlignment="Center"/>
             <TextBox Grid.Row="5" Grid.Column="1" Name="TextBoxName" Text="" ToolTip="Название исследования" Margin="5"/>
             <TextBlock Grid.Row="6" Grid.Column="0" Text="Значение:" VerticalAlignment="Center"/>
             <TextBox Grid.Column="1" Grid.Row="6" Name="TextBoxValue" Text="0,0" ToolTip="Введите итоговое главное значение результата исследования" Margin="5"/>
             <TextBlock Grid.Row="7" Text="Текст:" VerticalAlignment="Center"/>
             <TextBox Grid.Column="1" Grid.Row="7" Name="TextBoxResult" Text="" ToolTip="Введите текстовый результат исследования" Margin="5" Height="40" TextWrapping="Wrap"/>
-            <TextBlock Grid.Row="8" Text="Примечание:" VerticalAlignment="Center"/>
-            <TextBox Grid.Column="1" Grid.Row="8" Name="TextBoxDescription" Text="" ToolTip="Примечание к исследованию" Margin="5" Height="100" TextWrapping="Wrap"/>
-            <TextBlock Grid.Row="9" Text="Смена:" VerticalAlignment="Center"/>
-            <ComboBox Grid.Column="1" Grid.Row="9" Name="ComboBoxLaboratorian" Margin="5"
-                      ItemsSource="{Binding Laboratorians}"
+            <TextBlock Grid.Row="8" Text="Норма:" VerticalAlignment="Center"/>
+            <CheckBox Grid.Row="8" Grid.Column="1" Name="CheckBoxNormal" ToolTip="Отличный результат, или плохой" Margin="5"/>
+            <TextBlock Grid.Row="9" Text="Примечание:" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" Grid.Row="9" Name="TextBoxDescription" Text="" ToolTip="Примечание к исследованию" Margin="5" Height="100" TextWrapping="Wrap"/>
+            <TextBlock Grid.Row="10" Text="Лаборант:" VerticalAlignment="Center"/>
+            <ComboBox Grid.Column="1" Grid.Row="10" Name="ComboBoxLaboratorian" Margin="5"
+                      ItemsSource="{Binding AddNewResearchWindowLaboratorians}"
                       SelectedIndex="0"/>
 
         </Grid>
         <UniformGrid Rows="1">
-            <Button Content="Добавить" Name="ButtonAdd" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Background="SpringGreen" Cursor="Hand"/>
-            <Button Content="Отмена" Name="ButtonCancel" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Background="Yellow" Cursor="Hand"/>
+            <Button Content="Добавить" Name="ButtonAdd" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Background="SpringGreen" Click="ButtonAdd_OnClick" Cursor="Hand"/>
+            <Button Content="Отмена" Name="ButtonCancel" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" Background="Yellow" Click="ButtonCancel_OnClick" Cursor="Hand"/>
         </UniformGrid>
 
     </DockPanel>

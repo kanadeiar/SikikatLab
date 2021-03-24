@@ -38,6 +38,15 @@ namespace SilikatLab.lib.Models
             set => Set(ref _Patronymic, value);
         }
 
+        private bool _Inactive;
+
+        /// <summary> Лаборант неактивен, находится в архиве </summary>
+        public bool Inactive   
+        {
+            get => _Inactive;
+            set => Set(ref _Inactive, value);
+        }
+
         /// <summary> Исследования </summary>
         public virtual IEnumerable<Research> Researches { get; set; } = new List<Research>();
     }

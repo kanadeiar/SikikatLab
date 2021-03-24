@@ -69,7 +69,9 @@ namespace SilikatLab.ViewModels
         }
 
         public IEnumerable<Research> DayResearchesOfSelectedWorkTaskMain =>
-            Researches.Where(r => r.WorkTask == SelectedWorkTaskMain && r.DateTime >= DateTime.Today);
+            Researches.Where(r => r.WorkTask == SelectedWorkTaskMain && r.DateTime >= DateTime.Now.AddHours(- 24));
+
+
 
 
         #region Вспомогательные
@@ -95,7 +97,7 @@ namespace SilikatLab.ViewModels
             IRepository<WorkTask> WorkTasks,
             IRepository<Research> Researches)
         {
-            //UpdateDatabase();
+            UpdateDatabase();
             _Laboratorians = Laboratorians;
             _ResearchObjects = ResearchObjects;
             _TypeResearches = TypeResearches;
@@ -147,7 +149,7 @@ namespace SilikatLab.ViewModels
 
         private ICommand _ShowAddNewResearchWindowdCommand;
 
-        /// <summary> Команда показа окна добавления нового </summary>
+        /// <summary> Команда показа окна добавления нового результата </summary>
         public ICommand ShowAddNewResearchWindowdCommand => _ShowAddNewResearchWindowdCommand ??=
             new LambdaCommand(OnShowAddNewResearchWindowdCommandExecuted, CanShowAddNewResearchWindowdCommandExecute);
 

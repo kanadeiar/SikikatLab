@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SilikatLab.Windows"
         mc:Ignorable="d"
         DataContext="{Binding MainWindowViewModel, Source={StaticResource Locator}}"
-        Title="Добавление нового исследования в базу данных" Height="500" Width="500" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+        Title="Добавление нового простого исследования в базу данных" Height="540" Width="500" WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
     <DockPanel>
         <Grid DockPanel.Dock="Top" Margin="10">
             <Grid.ColumnDefinitions>
@@ -45,16 +45,15 @@
                       SelectedIndex="0"/>
             <TextBlock Grid.Row="4" Text="Задание:" VerticalAlignment="Center"/>
             <ComboBox Grid.Column="1" Grid.Row="4" Name="ComboBoxWorkTask" Margin="5"
-                      ItemsSource="{Binding WorkTasks}"
-                      SelectedIndex="0"/>
+                      ItemsSource="{Binding WorkTasks}"/>
             <TextBlock Grid.Row="5" Text="Название исследования:" VerticalAlignment="Center"/>
-            <TextBox Grid.Row="5" Grid.Column="1" Name="TextBoxName" Text="Исследование № 1" Margin="5"/>
+            <TextBox Grid.Row="5" Grid.Column="1" Name="TextBoxName" Text="" ToolTip="Название исследования" Margin="5"/>
             <TextBlock Grid.Row="6" Grid.Column="0" Text="Значение:" VerticalAlignment="Center"/>
-            <TextBox Grid.Column="1" Grid.Row="6" Name="TextBoxValue" Text="100,0" Margin="5"/>
-            <TextBlock Grid.Row="7" Text="Текстовый результат:" VerticalAlignment="Center"/>
-            <TextBox Grid.Column="1" Grid.Row="7" Name="TextBoxResult" Text="Обычное исследование плотности № 1" Margin="5" Height="40" TextWrapping="Wrap"/>
+            <TextBox Grid.Column="1" Grid.Row="6" Name="TextBoxValue" Text="0,0" ToolTip="Введите итоговое главное значение результата исследования" Margin="5"/>
+            <TextBlock Grid.Row="7" Text="Текст:" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" Grid.Row="7" Name="TextBoxResult" Text="" ToolTip="Введите текстовый результат исследования" Margin="5" Height="40" TextWrapping="Wrap"/>
             <TextBlock Grid.Row="8" Text="Примечание:" VerticalAlignment="Center"/>
-            <TextBox Grid.Column="1" Grid.Row="8" Name="TextBoxDescription" Text="Описание" Margin="5" Height="100" TextWrapping="Wrap"/>
+            <TextBox Grid.Column="1" Grid.Row="8" Name="TextBoxDescription" Text="" ToolTip="Примечание к исследованию" Margin="5" Height="100" TextWrapping="Wrap"/>
             <TextBlock Grid.Row="9" Text="Смена:" VerticalAlignment="Center"/>
             <ComboBox Grid.Column="1" Grid.Row="9" Name="ComboBoxLaboratorian" Margin="5"
                       ItemsSource="{Binding Laboratorians}"

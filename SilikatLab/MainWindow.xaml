@@ -154,6 +154,7 @@
                         <DataGrid ItemsSource="{Binding Laboratorians}" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="#ccffcc">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Фамилия Имя Отчество" Binding="{Binding FullName}"/>
+                                <DataGridCheckBoxColumn Header="Неактивность" Binding="{Binding Inactive}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </TabItem>

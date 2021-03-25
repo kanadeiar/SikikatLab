@@ -14,21 +14,23 @@ namespace SilikatLabConsole
         {
             ConsoleToRussian();
             //Random rnd = new Random();
+            var options = new DbContextOptionsBuilder<SPLaboratoryEntities>()
+                .UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SPLaboratoryDev.DB").Options;
 
-            using (var db = new SPLaboratoryEntities())
+            using (var db = new SPLaboratoryEntities(options))
             {
                 db.Database.Migrate();
             }
 
-            using (var db = new SPLaboratoryEntities()) db.Database.Migrate();
+            using (var db = new SPLaboratoryEntities(options)) db.Database.Migrate();
 
-            using (var db = new SPLaboratoryEntities())
+            using (var db = new SPLaboratoryEntities(options))
             {
                 //SPLaboratoryEntities.ClearData(db);
                 //SPLaboratoryEntities.AddTestData(db);
             }
 
-            using (var db = new SPLaboratoryEntities())
+            using (var db = new SPLaboratoryEntities(options))
             {
                 var tasks = db.WorkTasks
                     .Include(t => t.TypeResearch)
@@ -43,7 +45,7 @@ namespace SilikatLabConsole
 
 
 
-            using (var db = new SPLaboratoryEntities())
+            using (var db = new SPLaboratoryEntities(options))
             {
                 var researches = db.Researches
                     .Include(r => r.Laboratorian)

@@ -42,7 +42,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid Grid.Row="0" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="AntiqueWhite"
+                    <DataGrid Grid.Row="0" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="AntiqueWhite" Margin="5"
                               Name="DataGridWorkTasks" SelectionMode="Single"
                               ItemsSource="{Binding WorkTasks}"
                               SelectedItem="{Binding SelectedWorkTaskMain}">
@@ -52,7 +52,7 @@
                             <DataGridTextColumn Header="Выполнение" Binding="{Binding CompletedString}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Grid Grid.Column="1" >
+                    <Grid Grid.Column="1" Margin="5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -107,7 +107,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Результаты">
-                <Grid>
+                <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition/>
@@ -162,7 +162,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Архивные данные">
-                <Grid>
+                <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>

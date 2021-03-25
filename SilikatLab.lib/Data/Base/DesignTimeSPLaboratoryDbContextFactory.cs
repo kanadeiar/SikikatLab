@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Design;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace SilikatLab.lib.Data.Base
 {
@@ -6,7 +7,9 @@ namespace SilikatLab.lib.Data.Base
     {
         public SPLaboratoryEntities CreateDbContext(string[] args)
         {
-            return new();
+            var options = new DbContextOptionsBuilder<SPLaboratoryEntities>()
+                .UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SPLaboratoryDev.DB").Options;
+            return new(options);
         }
     }
 }

@@ -30,9 +30,9 @@ namespace SilikatLab.lib.Data.Base
         public DbSet<CementResearch> CementResearches { get; set; }
         /// <summary> Результаты исследования молото-вяжущего </summary>
         public DbSet<HammerBinderResearch> HammerBinderResearches { get; set; }
-        public SPLaboratoryEntities(string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SPLaboratoryDev.DB")
+        public SPLaboratoryEntities(DbContextOptions<SPLaboratoryEntities> options) : base(options)
         {
-            _ConnectionString = connectionString;
+            
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -40,7 +40,8 @@ namespace SilikatLab.lib.Data.Base
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_ConnectionString);
+            base.OnConfiguring(optionsBuilder);
+            //optionsBuilder.UseSqlServer(_ConnectionString);
         }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Configuration;
+using System.Diagnostics;
 using System.Windows;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SilikatLab.lib.Data.Base;
 using SilikatLab.lib.Data.Repositories;
@@ -24,7 +27,8 @@ namespace SilikatLab
         /// <summary> Инит сервисов </summary>
         private static void InitializeServices(IServiceCollection Services)
         {
-            Services.AddDbContext<SPLaboratoryEntities>();
+            Services.AddDbContext<SPLaboratoryEntities>(options => options
+                .UseSqlServer(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString));
             Services.AddSingleton<IRepository<Laboratorian>, LaboratorianRepository>();
             Services.AddSingleton<IRepository<ResearchObject>, ResearchObjectRepository>();
             Services.AddSingleton<IRepository<TypeResearch>, TypeResearchRepository>();

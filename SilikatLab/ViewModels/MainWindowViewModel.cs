@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -176,7 +177,9 @@ namespace SilikatLab.ViewModels
         /// <summary> Обновление через миграции базы данных </summary>
         private static void UpdateDatabase()
         {
-            using (var db = new SPLaboratoryEntities())
+            var options = new DbContextOptionsBuilder<SPLaboratoryEntities>()
+                .UseSqlServer(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString).Options;
+            using (var db = new SPLaboratoryEntities(options))
             {
                 db.Database.Migrate();
             }

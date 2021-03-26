@@ -88,10 +88,10 @@ namespace SilikatLab.ViewModels
         }
 
         public IEnumerable<Research> DayResearchesOfSelectedWorkTaskMain =>
-            Researches.Where(r => r.WorkTask == SelectedWorkTaskMain && r.DateTime >= DateTime.Now.AddHours(- 2));
+            Researches.Where(r => r.WorkTask == SelectedWorkTaskMain && r.DateTime >= DateTime.Now.AddDays(- 1));
 
         public IEnumerable<Research> DayResearchesMain =>
-            Researches.Where(r => r.DateTime >= DateTime.Now.AddHours(-2));
+            Researches.Where(r => r.DateTime >= DateTime.Now.AddDays(- 1));
 
         public IEnumerable<Laboratorian> AddNewResearchWindowLaboratorians =>
             Laboratorians.Where(l => l.Inactive == false);
@@ -182,6 +182,7 @@ namespace SilikatLab.ViewModels
             using (var db = new SPLaboratoryEntities(options))
             {
                 db.Database.Migrate();
+                //SPLaboratoryEntities.AddTestData(db);
             }
         }
 
